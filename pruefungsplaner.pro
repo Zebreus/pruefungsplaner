@@ -21,6 +21,7 @@ SOURCES += \
         src/dataModel/module.cpp \
         src/dataModel/plan.cpp \
         src/dataModel/semester.cpp \
+        src/dataModel/serializabledataobject.cpp \
         src/dataModel/timeslot.cpp \
         src/dataModel/week.cpp
 
@@ -63,5 +64,6 @@ HEADERS += \
     src/dataModel/module.h \
     src/dataModel/plan.h \
     src/dataModel/semester.h \
+    src/dataModel/serializabledataobject.h \
     src/dataModel/timeslot.h \
     src/dataModel/week.h

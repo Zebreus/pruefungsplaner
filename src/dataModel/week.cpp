@@ -1,9 +1,10 @@
 #include "week.h"
 
-Week::Week(QObject *parent) : QObject(parent)
+Week::Week(QObject *parent) : SerializableDataObject(parent)
 {
 
 }
+
 QString Week::name()
 {
     return weekName;
@@ -30,4 +31,18 @@ void Week::setDays(QList<Day*> days)
 
     this->days = days;
     emit daysChanged(this->days);
+}
+
+
+void Week::fromJsonObject(const QJsonObject &content)
+{
+    simpleValuesFromJsonObject(content);
+
+    QJsonArray daysJsonArray = content.value("days").toArray();
+    days = fromObjectJsonArray<Day>(daysJsonArray);
+}
+
+QJsonObject Week::toJsonObject() const
+{
+    return recursiveToJsonObject();
 }

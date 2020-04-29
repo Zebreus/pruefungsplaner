@@ -1,6 +1,6 @@
 #include "semester.h"
 
-Semester::Semester(QObject *parent) : QObject(parent)
+Semester::Semester(QObject *parent) : SerializableDataObject(parent)
 {
 
 }
@@ -30,4 +30,18 @@ void Semester::setPlans(QList<Plan*> plans)
 
     this->plans = plans;
     emit plansChanged(this->plans);
+}
+
+
+void Semester::fromJsonObject(const QJsonObject &content)
+{
+    simpleValuesFromJsonObject(content);
+
+    QJsonArray plansJsonArray = content.value("plans").toArray();
+    plans = fromObjectJsonArray<Plan>(plansJsonArray);
+}
+
+QJsonObject Semester::toJsonObject() const
+{
+    return recursiveToJsonObject();
 }

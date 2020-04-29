@@ -1,6 +1,6 @@
 #include "day.h"
 
-Day::Day(QObject *parent) : QObject(parent)
+Day::Day(QObject *parent) : SerializableDataObject(parent)
 {
 
 }
@@ -31,4 +31,18 @@ void Day::setTimeslots(QList<Timeslot*> timeslots)
 
     this->timeslots = timeslots;
     emit timeslotsChanged(this->timeslots);
+}
+
+
+void Day::fromJsonObject(const QJsonObject &content)
+{
+    simpleValuesFromJsonObject(content);
+
+    QJsonArray timeslotsJsonArray = content.value("timeslots").toArray();
+    timeslots = fromObjectJsonArray<Timeslot>(timeslotsJsonArray);
+}
+
+QJsonObject Day::toJsonObject() const
+{
+    return recursiveToJsonObject();
 }

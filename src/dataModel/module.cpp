@@ -1,6 +1,6 @@
 #include "module.h"
 
-Module::Module(QObject *parent) : QObject(parent)
+Module::Module(QObject *parent) : SerializableDataObject(parent)
 {
 
 }
@@ -32,18 +32,18 @@ void Module::setOrigin(const QString &origin)
     emit originChanged();
 }
 
-QString Module::getId()
+QString Module::getNumber()
 {
-    return id;
+    return number;
 }
 
-void Module::setId(const QString &id)
+void Module::setNumber(const QString &number)
 {
-    if (id == this->id)
+    if (number == this->number)
         return;
 
-    this->id = id;
-    emit idChanged();
+    this->number = number;
+    emit numberChanged();
 }
 
 bool Module::getActive()
@@ -91,7 +91,6 @@ void Module::removeGroup(Group* group){
 
     int removed = groups.removeAll(group);
     //int removed = 0;
-    cout << removed << " groups removed" << group << endl;
     if (removed > 0){
         emit groupsChanged(this->groups);
     }
@@ -101,8 +100,61 @@ void Module::removeConstraint(Group* constraint){
 
     int removed = constraints.removeAll(constraint);
     //int removed = 0;
-    cout << removed << " constraints removed" << constraint << endl;
     if (removed > 0){
         emit constraintsChanged(this->constraints);
     }
+}
+
+
+void Module::fromJsonObject(const QJsonObject &content)
+{
+    simpleValuesFromJsonObject(content);
+
+    Plan* activePlan = (Plan*) this->parent();
+
+    QJsonArray groupIdArray = content.value("groups").toArray();
+    for(QJsonValueRef groupId: groupIdArray){
+        int groupIdInt = groupId.toInt();
+
+        // Find the group with matching id and add reference to groups
+        for( Group* group : activePlan->getGroups() ){
+            if(group->getId() == groupIdInt){
+                groups.push_back(group);
+            }
+        }
+    }
+
+    QJsonArray constraintIdArray = content.value("constraints").toArray();
+    for(QJsonValueRef constraintId: constraintIdArray){
+        int constraintIdInt = constraintId.toInt();
+
+        // Find the constraint with matching id and add reference to constraints
+        for( Group* constraint : activePlan->getConstraints() ){
+            if(constraint->getId() == constraintIdInt){
+                constraints.push_back(constraint);
+            }
+        }
+    }
+
+}
+
+QJsonObject Module::toJsonObject() const
+{
+    QJsonObject jsonObject = recursiveToJsonObject();
+
+    QJsonArray groupArray;
+    for(QJsonValueRef group: jsonObject.value("groups").toArray()){
+        int groupId = group.toObject().value("id").toInt();
+        groupArray.push_back(groupId);
+    }
+    jsonObject.insert("groups", groupArray);
+
+    QJsonArray constraintArray;
+    for(QJsonValueRef group: jsonObject.value("constraints").toArray()){
+        int groupId = group.toObject().value("id").toInt();
+        constraintArray.push_back(groupId);
+    }
+    jsonObject.insert("constraints", constraintArray);
+
+    return jsonObject;
 }

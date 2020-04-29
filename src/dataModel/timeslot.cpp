@@ -1,6 +1,8 @@
 #include "timeslot.h"
+#include "module.h"
+class Module;
 
-Timeslot::Timeslot(QObject *parent) : QObject(parent)
+Timeslot::Timeslot(QObject *parent) : SerializableDataObject(parent)
 {
 
 }
@@ -62,4 +64,40 @@ void Timeslot::removeActiveGroup(Group* gp){
     if (activeGroups.removeAll(gp) > 0){
         emit activeGroupsChanged(this->activeGroups);
     }
+}
+
+
+void Timeslot::fromJsonObject(const QJsonObject &content)
+{
+    simpleValuesFromJsonObject(content);
+
+    Plan* activePlan = (Plan*) this->parent()->parent()->parent();
+
+    QList<Group*> allGroups;
+    allGroups.append(activePlan->getGroups());
+    allGroups.append(activePlan->getConstraints());
+    activeGroups = fromIdJsonArray<Group>(content.value("activeGroups"), allGroups);
+
+    modules = fromIdJsonArray<Module>(content.value("modules"), activePlan->getModules());
+}
+
+QJsonObject Timeslot::toJsonObject() const
+{
+    QJsonObject jsonObject = recursiveToJsonObject();
+
+    QJsonArray activeGroupArray;
+    for(QJsonValueRef activeGroup: jsonObject.value("activeGroups").toArray()){
+        int groupId = activeGroup.toObject().value("id").toInt();
+        activeGroupArray.push_back(groupId);
+    }
+    jsonObject.insert("activeGroups", activeGroupArray);
+
+    QJsonArray moduleArray;
+    for(QJsonValueRef module: jsonObject.value("modules").toArray()){
+        int moduleId = module.toObject().value("id").toInt();
+        moduleArray.push_back(moduleId);
+    }
+    jsonObject.insert("modules", moduleArray);
+
+    return jsonObject;
 }

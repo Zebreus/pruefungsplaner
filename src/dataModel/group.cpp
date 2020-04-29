@@ -1,6 +1,6 @@
 #include "group.h"
 
-Group::Group(QObject *parent) : QObject(parent)
+Group::Group(QObject *parent) : SerializableDataObject(parent)
 {
 
 }
@@ -31,4 +31,16 @@ void Group::setSelected(const bool selected)
 
     this->selected = selected;
     emit selectedChanged();
+}
+
+
+
+void Group::fromJsonObject(const QJsonObject &content)
+{
+    simpleValuesFromJsonObject(content);
+}
+
+QJsonObject Group::toJsonObject() const
+{
+    return recursiveToJsonObject();
 }

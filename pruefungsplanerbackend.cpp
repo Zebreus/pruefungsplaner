@@ -53,12 +53,12 @@ Plan* createPlan(QObject* parent){
 
     Module* module_a = new Module(m_plan);
     module_a->setName("Module a");
-    module_a->setId("30.1234");
+    module_a->setNumber("30.1234");
     module_a->setOrigin("FBI");
     module_a->setActive(true);
     Module* module_b = new Module(m_plan);
     module_b->setName("Module b");
-    module_b->setId("30.1235");
+    module_b->setNumber("30.1235");
     module_b->setOrigin("FBI");
     module_b->setActive(false);
 
@@ -80,6 +80,7 @@ Plan* createPlan(QObject* parent){
     m_plan->constraints.append(constraint_c);
     m_plan->constraints.append(constraint_d);
     module_a->constraints.append(constraint_a);
+    module_a->constraints.append(constraint_b);
     module_a->constraints.append(constraint_b);
     module_a->constraints.append(constraint_d);
     module_b->constraints.append(constraint_b);
@@ -119,7 +120,16 @@ Plan* createPlan(QObject* parent){
     week_b->getDays().last()->getTimeslots().first()->setActiveGroups(activeGroups);
     week_c->getDays().first()->getTimeslots().last()->setActiveGroups(activeGroups);
 
-    return m_plan;
+    QJsonObject plan = m_plan->toJsonObject();
+    cout << "test" << endl;
+    Plan* plan_b = new Plan(parent);
+    plan_b->fromJsonObject(plan);
+    QJsonObject planb = plan_b->toJsonObject();
+
+    qDebug() << plan;
+    qDebug() << planb;
+
+    return plan_b;
 }
 PruefungsplanerBackend::PruefungsplanerBackend(QObject *parent) : QObject(parent)
 {
@@ -132,14 +142,14 @@ PruefungsplanerBackend::PruefungsplanerBackend(QObject *parent) : QObject(parent
 
     QList<Plan*> plans_a;
     plans_a.append(createPlan(semester_a));
-    plans_a.append(createPlan(semester_a));
+    //plans_a.append(createPlan(semester_a));
     plans_a.first()->setName("plan a");
-    plans_a.last()->setName("plan b");
+    //plans_a.last()->setName("plan b");
     QList<Plan*> plans_b;
-    plans_b.append(createPlan(semester_b));
-    plans_b.append(createPlan(semester_b));
-    plans_b.first()->setName("plan c");
-    plans_b.last()->setName("plan d");
+    //plans_b.append(createPlan(semester_b));
+    //plans_b.append(createPlan(semester_b));
+    //plans_b.first()->setName("plan c");
+    //plans_b.last()->setName("plan d");
 
     semester_a->setPlans(plans_a);
     semester_b->setPlans(plans_b);

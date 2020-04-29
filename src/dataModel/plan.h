@@ -1,6 +1,8 @@
 #ifndef PLAN_H
 #define PLAN_H
 
+class Plan;
+
 #include <QObject>
 #include <QString>
 #include <QVariant>
@@ -14,7 +16,7 @@
 
 using namespace std;
 
-class Plan : public QObject
+class Plan : public SerializableDataObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
@@ -24,6 +26,7 @@ class Plan : public QObject
     Q_PROPERTY(QList<Module*> modules READ getModules NOTIFY modulesChanged)
 
 public:
+    using SerializableDataObject::SerializableDataObject;
     explicit Plan(QObject *parent = nullptr);
     QString name();
     QList<Group*> getConstraints();
@@ -53,6 +56,11 @@ public:
     QList<Module*> modules;
     QList<Week*> weeks;
 
+
+    // SerializableDataObject interface
+public:
+    void fromJsonObject(const QJsonObject &content);
+    QJsonObject toJsonObject() const;
 };
 
 #endif // PLAN_H

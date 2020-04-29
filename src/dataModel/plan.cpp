@@ -1,6 +1,6 @@
 #include "plan.h"
 
-Plan::Plan(QObject *parent) : QObject(parent)
+Plan::Plan(QObject *parent) : SerializableDataObject(parent)
 {
 
 }
@@ -64,19 +64,22 @@ void Plan::setWeeks(QList<Week*> weeks)
 }
 
 void Plan::addNewGroup(QString name){
-//    Week* o = weeks[0];
-//        QJsonObject obj;
-//        auto mo = o->metaObject();
-//        for (int i = mo->propertyOffset(); i < mo->propertyCount(); ++i){
-//            QVariant value = mo->property(i).name();
-//            obj[mo->property(i).name()] = ToJson(value);
-//        }
-//        //return obj;
 
-    Group* gp = new Group(this);
-    gp->setName(name);
-    groups.append(gp);
-    emit groupsChanged(this->groups);
+      Group* gp = new Group(this);
+      gp->setName("testname");
+
+      qDebug() << weeks.first()->getDays().first()->getTimeslots().first()->getActiveGroups().size();
+      QJsonObject a = weeks.first()->getDays().first()->getTimeslots().first()->toJsonObject();
+      Timeslot* ts = new Timeslot(weeks.first()->getDays().first());
+      ts->fromJsonObject(a);
+      QJsonObject b = ts->toJsonObject();
+      qDebug() << a;
+      qDebug() << b;
+
+//    Group* gp = new Group(this);
+//    gp->setName(name);
+//    groups.append(gp);
+//    emit groupsChanged(this->groups);
 }
 
 void Plan::removeGroup(Group* gp){
@@ -110,4 +113,27 @@ void Plan::removeConstraint(Group* gp){
         }
     }
     emit constraintsChanged(this->groups);
+}
+
+
+void Plan::fromJsonObject(const QJsonObject &content)
+{
+    simpleValuesFromJsonObject(content);
+
+    QJsonArray groupsJsonArray = content.value("groups").toArray();
+    groups = fromObjectJsonArray<Group>(groupsJsonArray);
+
+    QJsonArray constraintsJsonArray = content.value("constraints").toArray();
+    constraints = fromObjectJsonArray<Group>(constraintsJsonArray);
+
+    QJsonArray modulesJsonArray = content.value("modules").toArray();
+    modules = fromObjectJsonArray<Module>(modulesJsonArray);
+
+    QJsonArray weeksJsonArray = content.value("weeks").toArray();
+    weeks = fromObjectJsonArray<Week>(weeksJsonArray);
+}
+
+QJsonObject Plan::toJsonObject() const
+{
+    return recursiveToJsonObject();
 }

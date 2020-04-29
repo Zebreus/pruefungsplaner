@@ -10,7 +10,7 @@ PlanningViewForm {
         target: newGroupMouseArea
         onClicked: {
             Backend.activePlan.addNewGroup("Gruppe");
-            console.log(JSON.stringify(Backend.activePlan.weeks[0]));
+            //console.log(JSON.stringify(Backend.activePlan.weeks[0]));
             //TODO better solution to open popup
             groupList.children[Backend.activePlan.groups.length-1].children[0].children[0].clicked(false);
         }

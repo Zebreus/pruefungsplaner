@@ -40,7 +40,7 @@ ItemDelegate {
 
                 Label {
                     id: examNumber
-                    text: delegate.myModelData.id
+                    text: delegate.myModelData.number
                 }
             }
 
