@@ -83,21 +83,5 @@ void Timeslot::fromJsonObject(const QJsonObject &content)
 
 QJsonObject Timeslot::toJsonObject() const
 {
-    QJsonObject jsonObject = recursiveToJsonObject();
-
-    QJsonArray activeGroupArray;
-    for(QJsonValueRef activeGroup: jsonObject.value("activeGroups").toArray()){
-        int groupId = activeGroup.toObject().value("id").toInt();
-        activeGroupArray.push_back(groupId);
-    }
-    jsonObject.insert("activeGroups", activeGroupArray);
-
-    QJsonArray moduleArray;
-    for(QJsonValueRef module: jsonObject.value("modules").toArray()){
-        int moduleId = module.toObject().value("id").toInt();
-        moduleArray.push_back(moduleId);
-    }
-    jsonObject.insert("modules", moduleArray);
-
-    return jsonObject;
+    return recursiveToJsonObject();
 }

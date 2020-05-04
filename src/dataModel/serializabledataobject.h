@@ -36,8 +36,13 @@ protected:
      */
     virtual QJsonObject recursiveToJsonObject() const;
 
-    virtual QJsonArray toObjectJsonArray(const QList<SerializableDataObject *> list) const;
-    virtual QJsonArray toIdJsonArray(const QList<SerializableDataObject *> list) const;
+    /** Returns the property as JSON array of objects or ids.
+     *
+     */
+    virtual QJsonArray toJsonArray(const QList<SerializableDataObject *> &list) const;
+    virtual QJsonArray toJsonArray(const QList<QVariant> &list) const;
+    virtual QJsonArray toObjectJsonArray(const QList<SerializableDataObject *> &list) const;
+    virtual QJsonArray toIdJsonArray(const QList<SerializableDataObject *> &list) const;
 
     /** Creates a QList containing pointers to every sdo in content
      * For every entry in QJsonArray an object will be created

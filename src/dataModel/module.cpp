@@ -140,21 +140,5 @@ void Module::fromJsonObject(const QJsonObject &content)
 
 QJsonObject Module::toJsonObject() const
 {
-    QJsonObject jsonObject = recursiveToJsonObject();
-
-    QJsonArray groupArray;
-    for(QJsonValueRef group: jsonObject.value("groups").toArray()){
-        int groupId = group.toObject().value("id").toInt();
-        groupArray.push_back(groupId);
-    }
-    jsonObject.insert("groups", groupArray);
-
-    QJsonArray constraintArray;
-    for(QJsonValueRef group: jsonObject.value("constraints").toArray()){
-        int groupId = group.toObject().value("id").toInt();
-        constraintArray.push_back(groupId);
-    }
-    jsonObject.insert("constraints", constraintArray);
-
-    return jsonObject;
+    return recursiveToJsonObject();
 }
