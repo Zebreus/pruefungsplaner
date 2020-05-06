@@ -109,32 +109,10 @@ void Module::removeConstraint(Group* constraint){
 void Module::fromJsonObject(const QJsonObject &content)
 {
     simpleValuesFromJsonObject(content);
-
     Plan* activePlan = (Plan*) this->parent();
 
-    QJsonArray groupIdArray = content.value("groups").toArray();
-    for(QJsonValueRef groupId: groupIdArray){
-        int groupIdInt = groupId.toInt();
-
-        // Find the group with matching id and add reference to groups
-        for( Group* group : activePlan->getGroups() ){
-            if(group->getId() == groupIdInt){
-                groups.push_back(group);
-            }
-        }
-    }
-
-    QJsonArray constraintIdArray = content.value("constraints").toArray();
-    for(QJsonValueRef constraintId: constraintIdArray){
-        int constraintIdInt = constraintId.toInt();
-
-        // Find the constraint with matching id and add reference to constraints
-        for( Group* constraint : activePlan->getConstraints() ){
-            if(constraint->getId() == constraintIdInt){
-                constraints.push_back(constraint);
-            }
-        }
-    }
+    groups = fromIdJsonArray<Group>(content.value("groups"), activePlan->getGroups());
+    constraints = fromIdJsonArray<Group>(content.value("constraints"), activePlan->getConstraints());
 
 }
 
