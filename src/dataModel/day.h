@@ -14,7 +14,7 @@ class Day : public SerializableDataObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QList<Timeslot*> timeslots READ getTimeslots WRITE setTimeslots NOTIFY timeslotsChanged)
 public:
-    explicit Day(QObject *parent = nullptr);
+    Q_INVOKABLE explicit Day(QObject *parent = nullptr);
     using SerializableDataObject::SerializableDataObject;
 
     QString name();

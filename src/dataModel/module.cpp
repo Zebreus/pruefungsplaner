@@ -113,6 +113,9 @@ void Module::fromJsonObject(const QJsonObject &content)
 
     groups = fromIdJsonArray<Group>(content.value("groups"), activePlan->getGroups());
     constraints = fromIdJsonArray<Group>(content.value("constraints"), activePlan->getConstraints());
+    //fromMetaObjectJsonArray(content.value("groups").toArray(), "List<Group*>");
+
+    //qDebug() << (QMetaType::Type)var.userType() << " " << getTypeFromList((QMetaType::Type)var.userType()) << "=" << QMetaType::typeName(getTypeFromList((QMetaType::Type)var.userType()));
 
 }
 

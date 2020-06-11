@@ -5,7 +5,6 @@ class Module;
 
 #include <QObject>
 #include <QString>
-#include <QQmlListProperty>
 #include <QList>
 #include "group.h"
 #include "serializabledataobject.h"

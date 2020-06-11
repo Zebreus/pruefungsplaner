@@ -14,7 +14,7 @@ class Semester : public SerializableDataObject
     Q_PROPERTY(QList<Plan*> plans READ getPlans WRITE setPlans NOTIFY plansChanged)
 public:
     using SerializableDataObject::SerializableDataObject;
-    explicit Semester(QObject *parent = nullptr);
+    Q_INVOKABLE explicit Semester(QObject *parent = nullptr);
     QString name();
     void setName(const QString &name);
 

@@ -1,5 +1,5 @@
-#ifndef PRUEFUNGSPLANERBACKEND_H
-#define PRUEFUNGSPLANERBACKEND_H
+#ifndef PRUEFUNGSPLANER_MANAGER_H
+#define PRUEFUNGSPLANER_MANAGER_H
 
 #include <QObject>
 #include <QAbstractListModel>
@@ -16,11 +16,12 @@
 #include "src/dataModel/module.h"
 #include "src/dataModel/timeslot.h"
 #include "src/dataModel/week.h"
+#include "client.h"
 
 class QQmlEngine;
 class QJSEngine;
 
-class PruefungsplanerBackend : public QObject
+class PruefungsplanerManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QAbstractListModel* testList READ testList)
@@ -30,7 +31,7 @@ class PruefungsplanerBackend : public QObject
     Q_PROPERTY(QList<Semester*> semesters READ getSemesters WRITE setSemesters NOTIFY semestersChanged)
 
 public:
-    static PruefungsplanerBackend* getInstance();
+    static PruefungsplanerManager* getInstance();
     static QObject* getQmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
     QAbstractListModel* testList();
     QString userName();
@@ -48,13 +49,17 @@ signals:
     void activeSemesterChanged();
     void semestersChanged(QList<Semester*> semesters);
 
+public slots:
+    void gotResult(QJsonValue result);
+
 private:
-    explicit PruefungsplanerBackend(QObject *parent = nullptr);
-    static PruefungsplanerBackend* instance;
+    explicit PruefungsplanerManager(QObject *parent = nullptr);
+    static PruefungsplanerManager* instance;
     QString m_userName;
     Plan* m_plan;
     Semester* activeSemester;
     QList<Semester*> semesters;
+    Client* client;
 };
 
 #endif // PRUEFUNGSPLANERBACKEND_H

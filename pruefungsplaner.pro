@@ -1,4 +1,4 @@
-QT += quick quickcontrols2
+QT += quick quickcontrols2 websockets
 
 CONFIG += c++11 debug
 
@@ -14,8 +14,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        client.cpp \
         main.cpp \
-        pruefungsplanerbackend.cpp \
+        pruefungsplanermanager.cpp \
         src/dataModel/day.cpp \
         src/dataModel/group.cpp \
         src/dataModel/module.cpp \
@@ -58,7 +59,8 @@ DISTFILES += \
     res/hda.png
 
 HEADERS += \
-    pruefungsplanerbackend.h \
+    client.h \
+    pruefungsplanermanager.h \
     src/dataModel/day.h \
     src/dataModel/group.h \
     src/dataModel/module.h \

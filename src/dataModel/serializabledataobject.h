@@ -8,8 +8,10 @@ class SerializableDataObject;
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QMetaProperty>
+#include <QMetaType>
 #include <QDebug>
 #include <QList>
+//#include "semester.h"
 //#include "group.h"
 
 class SerializableDataObject : public QObject
@@ -54,6 +56,19 @@ protected:
     QList<T*> fromObjectJsonArray(const QJsonArray& content);
     template<class T>
     QList<T*> fromObjectJsonArray(const QJsonValue& content);
+
+    //QList<SerializableDataObject *> fromObjectJsonArray(const QJsonArray& content, const QString& name);
+    //setzt property, falls sie vorhanden ist
+    bool setPropertyValue(const QJsonValue& value, const QString& propertyName);
+    QMetaType::Type getTypeFromList(const QMetaType::Type& type) const;
+    QVariant createListFromValueAndListType(const QJsonArray& value, const QMetaType::Type& listType);
+    QVariant createListFromValueAndContentType(const QJsonArray& value, const QMetaType::Type& contentType);
+    //Erstellt Liste aus daten und dem Name des typs der Daten die in dem Array sind.
+    QList<SerializableDataObject *> createFromJsonArrayAndName(const QJsonArray& content, const QString* type) const;
+    SerializableDataObject* createFromJsonAndName(const QJsonObject& content, const QString* type) const;
+    SerializableDataObject* createFromJsonAndType(const QJsonObject& content, const QMetaObject* type) const;
+    QMetaObject* createMetaObjectFromName(const QString& name) const;
+
 
     /** Creates a QList containing pointers to sdos from objects with the ids from content
      * No objects will be created, the returned QList will only contain pointers from objects
@@ -115,5 +130,6 @@ QList<T *> SerializableDataObject::fromIdJsonArray(const QJsonValue &content, co
 {
     return fromIdJsonArray<T>(content.toArray(), objects);
 }
+
 
 #endif // SERIALIZABLEDATAOBJECT_H

@@ -1,4 +1,4 @@
-#include "pruefungsplanerbackend.h"
+#include "pruefungsplanermanager.h"
 
 #include <QQmlEngine>
 
@@ -121,68 +121,71 @@ Plan* createPlan(QObject* parent){
     week_c->getDays().first()->getTimeslots().last()->setActiveGroups(activeGroups);
 
     QJsonObject plan = m_plan->toJsonObject();
-    cout << "test" << endl;
+    
     Plan* plan_b = new Plan(parent);
     plan_b->fromJsonObject(plan);
     QJsonObject planb = plan_b->toJsonObject();
 
-    qDebug() << plan;
-    qDebug() << planb;
+    //qDebug() << plan;
+    //qDebug() << planb;
 
     return plan_b;
 }
-PruefungsplanerBackend::PruefungsplanerBackend(QObject *parent) : QObject(parent)
-{
-    qRegisterMetaType<QQmlListProperty<Group>>("QQmlListProperty<Group>");
 
+PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent)
+{
     Semester* semester_a = new Semester(this);
-    Semester* semester_b = new Semester(this);
-    semester_a->setName("Semester a");
-    semester_b->setName("Semester b");
+    //Semester* semester_b = new Semester(this);
+    semester_a->setName("Semester 1");
+    //semester_b->setName("Semester b");
 
     QList<Plan*> plans_a;
     plans_a.append(createPlan(semester_a));
     //plans_a.append(createPlan(semester_a));
-    plans_a.first()->setName("plan a");
+    plans_a.first()->setName("Plan 1");
     //plans_a.last()->setName("plan b");
-    QList<Plan*> plans_b;
+    //QList<Plan*> plans_b;
     //plans_b.append(createPlan(semester_b));
     //plans_b.append(createPlan(semester_b));
     //plans_b.first()->setName("plan c");
     //plans_b.last()->setName("plan d");
 
     semester_a->setPlans(plans_a);
-    semester_b->setPlans(plans_b);
+    //semester_b->setPlans(plans_b);
 
     semesters.append(semester_a);
-    semesters.append(semester_b);
-
+    //semesters.append(semester_b);
     activeSemester = semesters.first();
     m_plan = activeSemester->getPlans().first();
+
+    client = new Client(QUrl("ws://localhost:56730"), this);
+    connect(client, &Client::gotResult,
+            this, &PruefungsplanerManager::gotResult);
+    client->updatePlan();
 }
 
-PruefungsplanerBackend* PruefungsplanerBackend::instance = nullptr;
+PruefungsplanerManager* PruefungsplanerManager::instance = nullptr;
 
-PruefungsplanerBackend* PruefungsplanerBackend::getInstance()
+PruefungsplanerManager* PruefungsplanerManager::getInstance()
 {
-    if (PruefungsplanerBackend::instance == nullptr)
-        instance = new PruefungsplanerBackend;
+    if (PruefungsplanerManager::instance == nullptr)
+        instance = new PruefungsplanerManager;
     return instance;
 }
 
-QObject* PruefungsplanerBackend::getQmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine) {
+QObject* PruefungsplanerManager::getQmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine) {
     Q_UNUSED(engine);
     Q_UNUSED(scriptEngine);
 
-    return PruefungsplanerBackend::getInstance();
+    return PruefungsplanerManager::getInstance();
 }
 
-QString PruefungsplanerBackend::userName()
+QString PruefungsplanerManager::userName()
 {
     return m_userName;
 }
 
-QAbstractListModel* PruefungsplanerBackend::testList(){
+QAbstractListModel* PruefungsplanerManager::testList(){
     std::cout << "A" << std::endl;
     QQuickView view;
     view.setSource(QUrl::fromLocalFile("../pruefungsplaner/dummydata/ModulesModel.qml"));
@@ -192,11 +195,11 @@ QAbstractListModel* PruefungsplanerBackend::testList(){
     return ((QAbstractListModel*)object);
 }
 
-Plan* PruefungsplanerBackend::getActivePlan(){
+Plan* PruefungsplanerManager::getActivePlan(){
     return m_plan;
 }
 
-void PruefungsplanerBackend::setActivePlan(Plan *plan)
+void PruefungsplanerManager::setActivePlan(Plan *plan)
 {
     if (this->m_plan == plan)
         return;
@@ -205,11 +208,11 @@ void PruefungsplanerBackend::setActivePlan(Plan *plan)
     emit activePlanChanged();
 }
 
-Semester* PruefungsplanerBackend::getActiveSemester(){
+Semester* PruefungsplanerManager::getActiveSemester(){
     return activeSemester;
 }
 
-void PruefungsplanerBackend::setActiveSemester(Semester *semester)
+void PruefungsplanerManager::setActiveSemester(Semester *semester)
 {
     if (this->activeSemester == semester)
         return;
@@ -218,7 +221,7 @@ void PruefungsplanerBackend::setActiveSemester(Semester *semester)
     emit activeSemesterChanged();
 }
 
-void PruefungsplanerBackend::setSemesters(QList<Semester*> semesters)
+void PruefungsplanerManager::setSemesters(QList<Semester*> semesters)
 {
     if (this->semesters == semesters)
         return;
@@ -227,16 +230,39 @@ void PruefungsplanerBackend::setSemesters(QList<Semester*> semesters)
     emit semestersChanged(this->semesters);
 }
 
-QList<Semester*> PruefungsplanerBackend::getSemesters() const
+QList<Semester*> PruefungsplanerManager::getSemesters() const
 {
     return semesters;
 }
 
-void PruefungsplanerBackend::setUserName(const QString &userName)
+void PruefungsplanerManager::setUserName(const QString &userName)
 {
     if (userName == m_userName)
         return;
 
     m_userName = userName;
     emit userNameChanged();
+}
+
+void PruefungsplanerManager::gotResult(QJsonValue result)
+{
+    qDebug() << "Received: " << result;
+    if(result.isArray()){
+        semesters.clear();
+        QJsonArray resultArray = result.toArray();
+        for(QJsonValue val : resultArray){
+            Semester* semester = new Semester(this);
+            semester->fromJsonObject(val.toObject());
+            semesters.append(semester);
+        }
+        activeSemester = semesters.first();
+        m_plan = activeSemester->getPlans().first();
+        semestersChanged(semesters);
+        activeSemesterChanged();
+        activePlanChanged();
+    }else{
+        qDebug() << "No array";
+    }
+    //activeSemester = semesters.first();
+    //m_plan = activeSemester->getPlans().first();
 }

@@ -1,17 +1,21 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
-#include <pruefungsplanerbackend.h>
+#include <pruefungsplanermanager.h>
+#include <QtCore>
+
+#include "src/dataModel/semester.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+
     //PruefungsplanerBackend::getInstance();
 
     //qmlRegisterType<PruefungsplanerBackend>("examples.backend", 1, 0, "BackEnd");
-    qmlRegisterSingletonType<PruefungsplanerBackend>("org.pruefungsplaner.Backend", 1, 0, "Backend", &PruefungsplanerBackend::getQmlInstance);
+    qmlRegisterSingletonType<PruefungsplanerManager>("org.pruefungsplaner.Backend", 1, 0, "Backend", &PruefungsplanerManager::getQmlInstance);
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -20,6 +24,6 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
     return app.exec();
+
 }

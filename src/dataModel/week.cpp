@@ -40,6 +40,9 @@ void Week::fromJsonObject(const QJsonObject &content)
 
     QJsonArray daysJsonArray = content.value("days").toArray();
     days = fromObjectJsonArray<Day>(daysJsonArray);
+    QVariant var;
+    var.setValue(days);
+    createListFromValueAndContentType(daysJsonArray, (QMetaType::Type)var.userType());
 }
 
 QJsonObject Week::toJsonObject() const
