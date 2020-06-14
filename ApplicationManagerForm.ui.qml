@@ -37,9 +37,9 @@ Item {
                 id: planningView
             }
 
-            //ResultView {
-            //    id: resultView
-            //}
+            ResultView {
+                id: resultView
+            }
         }
     }
 }

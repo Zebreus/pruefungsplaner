@@ -48,6 +48,8 @@ DISTFILES += \
     NewGroupEditorForm.ui.qml \
     RemovableLabel.qml \
     RemovableLabelForm.ui.qml \
+    ResultViewModuleItem.qml \
+    ResultViewModuleItemForm.ui.qml \
     dummydata/availabilityModel.qml \
     dummydata/availabilityModel2.qml \
     dummydata/context/NOTAvailabilityEditor.qml \
