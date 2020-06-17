@@ -64,6 +64,15 @@ void Client::updatePlan()
     webSocket.open(QUrl(url));
 }
 
+void Client::startPlanning(QJsonValue plan)
+{
+    QString message = "{\"jsonrpc\":\"2.0\",\"method\":\"startPlanning\",\"params\":[";
+    message.append(QJsonDocument(plan.toObject()).toJson(QJsonDocument::Compact));
+    message.append("],\"id\":\"4\"}");
+    webSocket.sendTextMessage(message);
+    timer.start(500);
+}
+
 void Client::onConnected()
 {
     qDebug() << "WebSocket connected";
@@ -74,10 +83,21 @@ void Client::onConnected()
 
 void Client::onTextMessageReceived(QString message)
 {
-    qDebug() << "got message";
     QJsonDocument document = QJsonDocument::fromJson(message.toUtf8());
     QJsonObject response = document.object();
-    qDebug() << "got message2" << QJsonDocument(response).toJson();
     QJsonValue result = response.value("result");
-    emit gotResult(result);
+    int id = response.value("id").toString().toInt();
+    qDebug() << id << " got message:" << QJsonDocument(response).toJson(QJsonDocument::Compact);
+    switch (id){
+        case 3:
+            emit gotResult(result);
+            break;
+    case 6:
+            emit finishedPlanning(result);
+            break;
+    default:
+        qDebug() << "Unknown id";
+    }
+
+}
 }

@@ -20,9 +20,11 @@ class Client : public QObject
 public:
     explicit Client(const QUrl &url, QObject *parent = nullptr);
     void updatePlan();
+    void startPlanning(QJsonValue plan);
 
 signals:
     void gotResult(QJsonValue result);
+    void finishedPlanning(QJsonValue result);
 
 private Q_SLOTS:
     void onConnected();

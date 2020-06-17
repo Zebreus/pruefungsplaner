@@ -40,6 +40,11 @@ TitleBarForm {
     }
 
     Connections {
+        target: buildButton
+        onClicked: Backend.startPlanning()
+    }
+
+    Connections {
         target: overviewButton
         onClicked: planClicked()
     }

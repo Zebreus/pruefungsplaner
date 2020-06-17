@@ -161,6 +161,7 @@ PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent
     client = new Client(QUrl("ws://localhost:56730"), this);
     connect(client, &Client::gotResult,
             this, &PruefungsplanerManager::gotResult);
+    connect(client, &Client::finishedPlanning, this, &PruefungsplanerManager::gotFinishedPlan);
     client->updatePlan();
 }
 
@@ -244,6 +245,13 @@ void PruefungsplanerManager::setUserName(const QString &userName)
     emit userNameChanged();
 }
 
+void PruefungsplanerManager::startPlanning()
+{
+    qDebug() << "start planning";
+    QJsonValue plan = getActivePlan()->toJsonObject();
+    client->startPlanning(plan);
+}
+
 void PruefungsplanerManager::gotResult(QJsonValue result)
 {
     qDebug() << "Received: " << result;
@@ -266,3 +274,11 @@ void PruefungsplanerManager::gotResult(QJsonValue result)
     //activeSemester = semesters.first();
     //m_plan = activeSemester->getPlans().first();
 }
+
+void PruefungsplanerManager::gotFinishedPlan(QJsonValue plan)
+{
+    qDebug() << "got finished plan";
+    getActivePlan()->fromJsonObject(plan.toObject());
+    emit activePlanChanged();
+}
+

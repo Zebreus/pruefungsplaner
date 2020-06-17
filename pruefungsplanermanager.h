@@ -42,6 +42,7 @@ public:
     QList<Semester*> getSemesters() const;
     void setSemesters(QList<Semester*> semesters);
     void setUserName(const QString &userName);
+    Q_INVOKABLE void startPlanning();
 
 signals:
     void userNameChanged();
@@ -51,6 +52,7 @@ signals:
 
 public slots:
     void gotResult(QJsonValue result);
+    void gotFinishedPlan(QJsonValue plan);
 
 private:
     explicit PruefungsplanerManager(QObject *parent = nullptr);
