@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QJsonArray>
+#include <QTimer>
 
 class Client : public QObject
 {
@@ -16,6 +17,8 @@ class Client : public QObject
 
     QUrl url;
     QWebSocket webSocket;
+    QTimer timer;
+    bool planning;
 
 public:
     explicit Client(const QUrl &url, QObject *parent = nullptr);
@@ -25,10 +28,12 @@ public:
 signals:
     void gotResult(QJsonValue result);
     void finishedPlanning(QJsonValue result);
+    void setProgress(int progress);
 
 private Q_SLOTS:
     void onConnected();
     void onTextMessageReceived(QString message);
+    void requestProgress();
 };
 
 #endif // CLIENT_H

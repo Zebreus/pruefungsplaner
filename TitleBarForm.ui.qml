@@ -3,6 +3,8 @@ import QtQuick.Controls 2.14
 import QtQuick.Layouts 1.3
 import "dummydata"
 
+import org.pruefungsplaner.Backend 1.0
+
 ToolBar {
     position: ToolBar.Header
 
@@ -81,8 +83,9 @@ ToolBar {
             ProgressBar {
                 id: buildProgress
                 from: 0
-                to: 1
-                value: 0.5
+                to: 100
+                value: Backend.progress
+
             }
 
             ToolButton {

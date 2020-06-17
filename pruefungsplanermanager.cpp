@@ -162,6 +162,7 @@ PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent
     connect(client, &Client::gotResult,
             this, &PruefungsplanerManager::gotResult);
     connect(client, &Client::finishedPlanning, this, &PruefungsplanerManager::gotFinishedPlan);
+    connect(client, &Client::setProgress, this, &PruefungsplanerManager::gotProgress);
     client->updatePlan();
 }
 
@@ -245,6 +246,12 @@ void PruefungsplanerManager::setUserName(const QString &userName)
     emit userNameChanged();
 }
 
+int PruefungsplanerManager::getProgress() const
+{
+    qDebug() << "Get progress" << m_progress;
+    return m_progress;
+}
+
 void PruefungsplanerManager::startPlanning()
 {
     qDebug() << "start planning";
@@ -282,3 +289,8 @@ void PruefungsplanerManager::gotFinishedPlan(QJsonValue plan)
     emit activePlanChanged();
 }
 
+void PruefungsplanerManager::gotProgress(int progress)
+{
+    m_progress = progress;
+    emit progressChanged(m_progress);
+}

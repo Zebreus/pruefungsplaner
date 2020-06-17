@@ -29,6 +29,7 @@ class PruefungsplanerManager : public QObject
     Q_PROPERTY(Semester* activeSemester READ getActiveSemester WRITE setActiveSemester NOTIFY activeSemesterChanged)
     Q_PROPERTY(Plan* activePlan READ getActivePlan WRITE setActivePlan NOTIFY activePlanChanged)
     Q_PROPERTY(QList<Semester*> semesters READ getSemesters WRITE setSemesters NOTIFY semestersChanged)
+    Q_PROPERTY(int progress READ getProgress NOTIFY progressChanged)
 
 public:
     static PruefungsplanerManager* getInstance();
@@ -42,6 +43,7 @@ public:
     QList<Semester*> getSemesters() const;
     void setSemesters(QList<Semester*> semesters);
     void setUserName(const QString &userName);
+    int getProgress() const;
     Q_INVOKABLE void startPlanning();
 
 signals:
@@ -49,10 +51,12 @@ signals:
     void activePlanChanged();
     void activeSemesterChanged();
     void semestersChanged(QList<Semester*> semesters);
+    void progressChanged(int progress);
 
 public slots:
     void gotResult(QJsonValue result);
     void gotFinishedPlan(QJsonValue plan);
+    void gotProgress(int progress);
 
 private:
     explicit PruefungsplanerManager(QObject *parent = nullptr);
@@ -62,6 +66,7 @@ private:
     Semester* activeSemester;
     QList<Semester*> semesters;
     Client* client;
+    int m_progress;
 };
 
 #endif // PRUEFUNGSPLANERBACKEND_H

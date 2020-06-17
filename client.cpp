@@ -56,7 +56,9 @@
 Client::Client(const QUrl &url, QObject *parent)
 {
     connect(&webSocket, &QWebSocket::connected, this, &Client::onConnected);
+    connect(&timer, SIGNAL(timeout()), this, SLOT(requestProgress()));
     this->url = url;
+    planning = false;
 }
 
 void Client::updatePlan()
@@ -95,9 +97,26 @@ void Client::onTextMessageReceived(QString message)
     case 6:
             emit finishedPlanning(result);
             break;
+    case 5:
+    {
+        int progress = result.toInt();
+        if(progress == 100){
+            timer.stop();
+            webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getPlannedPlan\",\"id\":\"6\"}");
+            planning = false;
+        }
+        emit setProgress(result.toInt());
+        break;}
     default:
         qDebug() << "Unknown id";
     }
 
 }
+
+void Client::requestProgress()
+{
+    webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getPlanningProgress\",\"id\":\"5\"}");
+    if(planning){
+        timer.start(500);
+    }
 }
