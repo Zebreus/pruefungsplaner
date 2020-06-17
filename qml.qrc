@@ -60,5 +60,7 @@
         <file>dummydata/ConstraintModel.qml</file>
         <file>ResultViewModuleItemForm.ui.qml</file>
         <file>ResultViewModuleItem.qml</file>
+        <file>DateEditor.qml</file>
+        <file>DateEditorForm.ui.qml</file>
     </qresource>
 </RCC>

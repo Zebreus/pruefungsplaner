@@ -20,6 +20,24 @@ ItemDelegate {
             icon.source: "res/icons/material/drag_indicator-24px.svg"
             display: AbstractButton.IconOnly
         }
+
+        Popup {
+            id: moduleEditorPopup
+            dim: true
+            modal: true
+            focus: true
+            anchors.centerIn: Overlay.overlay
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+            DateEditor {
+                id: dateEditorPopup
+                module: dataModel
+            }
+        }
+
+        Connections {
+            target: moveButton
+            onClicked: moduleEditorPopup.open()
+        }
     }
 }
 
