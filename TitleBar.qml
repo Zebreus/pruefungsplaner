@@ -39,6 +39,14 @@ TitleBarForm {
         }
     }
 
+    Behavior on buildProgress.value {
+        NumberAnimation {
+            id: moveAnim
+            duration: 350
+            easing.type: Easing.InOutQuad
+        }
+    }
+
     Connections {
         target: buildButton
         onClicked: Backend.startPlanning()
