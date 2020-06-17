@@ -79,9 +79,9 @@ ColumnLayout {
                             target: moduleCheckBox
                             onCheckedChanged: {
                                 if (moduleCheckBox.checked) {
-                                    moduleData.addModule(myModule)
+                                    modelData.addModule(myModule)
                                 } else {
-                                    moduleData.removeModule(myModule)
+                                    modelData.removeModule(myModule)
                                 }
                             }
                         }
