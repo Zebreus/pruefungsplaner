@@ -20,7 +20,7 @@ SOURCES += \
         src/main.cpp \
         src/pruefungsplanermanager.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += res/qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
