@@ -4,8 +4,6 @@
 #include <pruefungsplanermanager.h>
 #include <QtCore>
 
-#include "src/dataModel/semester.h"
-
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
