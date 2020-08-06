@@ -55,5 +55,7 @@
         <file>qml/ResultViewModuleItem.qml</file>
         <file>qml/DateEditor.qml</file>
         <file>qml/DateEditorForm.ui.qml</file>
+        <file>qml/LoginPopup.qml</file>
+        <file>qml/LoginPopupForm.ui.qml</file>
     </qresource>
 </RCC>
