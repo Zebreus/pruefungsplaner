@@ -1,7 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.3
-import "dummydata"
 
 import org.pruefungsplaner.Backend 1.0
 
@@ -54,7 +53,7 @@ ColumnLayout {
                 model: modelData.days
                 delegate: Label {
                     Layout.column: 0
-                    Layout.row: 2 + index + weekIndex * (maxDaysPerWeek+2)
+                    Layout.row: 2 + index + weekIndex * (maxDaysPerWeek + 2)
                     text: modelData.name
                 }
             }
@@ -72,7 +71,7 @@ ColumnLayout {
                     model: modelData.timeslots
                     delegate: CheckBox {
                         id: groupCheckBox
-                        Layout.row: 2 + rowIndex + weekIndex * (maxDaysPerWeek+2)
+                        Layout.row: 2 + rowIndex + weekIndex * (maxDaysPerWeek + 2)
                         Layout.column: index + 1
                         checked: modelData.containsActiveGroup(myGroup)
                         display: AbstractButton.IconOnly
@@ -96,7 +95,7 @@ ColumnLayout {
         Repeater {
             model: Backend.activePlan.weeks
             delegate: ToolSeparator {
-                Layout.row: index * (maxDaysPerWeek+2)
+                Layout.row: index * (maxDaysPerWeek + 2)
                 Layout.fillWidth: true
                 topPadding: 12
                 rightPadding: 10
@@ -114,7 +113,7 @@ ColumnLayout {
                 model: modelData.days[0].timeslots
                 delegate: Label {
                     Layout.column: 1 + index
-                    Layout.row: 1 + weekIndex * (maxDaysPerWeek+2)
+                    Layout.row: 1 + weekIndex * (maxDaysPerWeek + 2)
                     text: modelData.name
                 }
             }

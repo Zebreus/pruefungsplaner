@@ -1,7 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Layouts 1.3
-import "dummydata"
 
 import org.pruefungsplaner.Backend 1.0
 
@@ -85,7 +84,6 @@ ToolBar {
                 from: 0
                 to: 100
                 value: Backend.progress
-
             }
 
             ToolButton {
@@ -97,3 +95,9 @@ ToolBar {
         }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

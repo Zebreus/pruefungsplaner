@@ -1,12 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qtquickcontrols2.conf</file>
-        <file>dummydata/ModulesModel.qml</file>
-        <file>dummydata/GroupModel.qml</file>
-        <file>dummydata/ConstraintModel.qml</file>
-        <file>dummydata/ResultModel.qml</file>
-        <file>dummydata/AvailabilityModel.qml</file>
-        <file>dummydata/SemesterModel.qml</file>
         <file>icons/material/delete-24px.svg</file>
         <file>icons/material/dashboard-24px.svg</file>
         <file>icons/material/event-24px.svg</file>

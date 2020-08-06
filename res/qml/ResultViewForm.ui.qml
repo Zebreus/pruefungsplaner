@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.3
 import QtQuick.Extras 1.4
 import Qt.labs.settings 1.0
 import org.pruefungsplaner.Backend 1.0
-import "dummydata"
 
 Column {
     anchors.fill: parent
@@ -150,10 +149,3 @@ Column {
     //        }
     //    }
 }
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
-

@@ -1,33 +1,21 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.3
-import "dummydata"
 
 import org.pruefungsplaner.Backend 1.0
 
 SplitView {
     id: mainSplitView
     property alias newGroupMouseArea: newGroupMouseArea
-    property alias groupModel: groupModel
     property alias groupList: groupList
     property alias newConstraintMouseArea: newConstraintMouseArea
-    property alias constraintModel: constraintModel
     property alias constraintList: constraintList
-    //property alias groupCheckBox: groupCheckBox
     Layout.minimumWidth: 100
     Layout.maximumWidth: 500
     orientation: Qt.Horizontal
     anchors.fill: parent
     Layout.fillHeight: true
     Layout.fillWidth: true
-
-    GroupModel {
-        id: groupModel
-    }
-
-    ConstraintModel {
-        id: constraintModel
-    }
 
     Flickable {
         SplitView.minimumWidth: 200

@@ -35,25 +35,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    ExamListItem.qml \
-    ExamListItemForm.ui.qml \
-    NewGroupEditor.qml \
-    NewGroupEditorForm.ui.qml \
-    RemovableLabel.qml \
-    RemovableLabelForm.ui.qml \
-    ResultViewModuleItem.qml \
-    ResultViewModuleItemForm.ui.qml \
-    dummydata/availabilityModel.qml \
-    dummydata/availabilityModel2.qml \
-    dummydata/context/NOTAvailabilityEditor.qml \
-    dummydata/context/NOTAvailabilityEditorForm.ui.qml \
-    dummydata/context/test \
-    dummydata/test \
-    qtquickcontrols2.conf \
-    res/fbi.png \
-    res/hda.png
-
 HEADERS += \
     src/client.h \
     src/pruefungsplanermanager.h
