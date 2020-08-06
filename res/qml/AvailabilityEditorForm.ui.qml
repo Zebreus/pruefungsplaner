@@ -29,7 +29,7 @@ ColumnLayout {
             id: editName
             padding: 0
             icon.name: "edit"
-            icon.source: "res/icons/material/create-24px.svg"
+            icon.source: "qrc:/icons/material/create-24px.svg"
         }
     }
 

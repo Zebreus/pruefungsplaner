@@ -104,7 +104,7 @@ SplitView {
                             Image {
                                 Layout.leftMargin: 9
                                 Layout.rightMargin: 9
-                                source: "res/icons/material/add-24px.svg"
+                                source: "qrc:/icons/material/add-24px.svg"
                             }
                         }
                     }
@@ -191,7 +191,7 @@ SplitView {
                             Image {
                                 Layout.leftMargin: 9
                                 Layout.rightMargin: 9
-                                source: "res/icons/material/add-24px.svg"
+                                source: "qrc:/icons/material/add-24px.svg"
                             }
                         }
                     }

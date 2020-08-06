@@ -17,7 +17,7 @@ ItemDelegate {
             text: qsTr("Verschieben")
             flat: false
             icon.name: "drag_indicator"
-            icon.source: "res/icons/material/drag_indicator-24px.svg"
+            icon.source: "qrc:/icons/material/drag_indicator-24px.svg"
             display: AbstractButton.IconOnly
         }
 

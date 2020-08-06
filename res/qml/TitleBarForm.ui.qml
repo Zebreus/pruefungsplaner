@@ -26,12 +26,12 @@ ToolBar {
                 id: menuButton
                 display: AbstractButton.IconOnly
                 icon.name: "menu"
-                icon.source: "res/icons/material/menu-24px.svg"
+                icon.source: "qrc:/icons/material/menu-24px.svg"
             }
 
             Image {
                 id: image
-                source: "res/images/fbi.svg"
+                source: "qrc:/images/fbi.svg"
                 fillMode: Image.PreserveAspectFit
                 Layout.preferredHeight: parent.height
                 Layout.preferredWidth: paintedWidth
@@ -68,7 +68,7 @@ ToolBar {
                 id: overviewButton
                 display: AbstractButton.IconOnly
                 icon.name: "dashboard"
-                icon.source: "res/icons/material/dashboard-24px.svg"
+                icon.source: "qrc:/icons/material/dashboard-24px.svg"
                 icon.color: "transparent"
             }
 
@@ -76,7 +76,7 @@ ToolBar {
                 id: buildButton
                 display: AbstractButton.IconOnly
                 icon.name: "build"
-                icon.source: "res/icons/material/build-24px.svg"
+                icon.source: "qrc:/icons/material/build-24px.svg"
             }
 
             ProgressBar {
@@ -90,7 +90,7 @@ ToolBar {
                 id: resultButton
                 display: AbstractButton.IconOnly
                 icon.name: "event"
-                icon.source: "res/icons/material/event-24px.svg"
+                icon.source: "qrc:/icons/material/event-24px.svg"
             }
         }
     }
@@ -101,3 +101,4 @@ Designer {
     D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/
+
