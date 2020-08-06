@@ -3,6 +3,7 @@ QT += quick quickcontrols2 websockets
 CONFIG += c++11 debug
 
 include($$PWD/libs/pruefungsplaner-datamodel/pruefungsplaner-datamodel.pri)
+include($$PWD/libs/security-provider/client/client.pri)
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
