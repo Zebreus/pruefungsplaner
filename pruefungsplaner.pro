@@ -16,9 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        client.cpp \
-        main.cpp \
-        pruefungsplanermanager.cpp
+        src/client.cpp \
+        src/main.cpp \
+        src/pruefungsplanermanager.cpp
 
 RESOURCES += qml.qrc
 
@@ -55,5 +55,5 @@ DISTFILES += \
     res/hda.png
 
 HEADERS += \
-    client.h \
-    pruefungsplanermanager.h
+    src/client.h \
+    src/pruefungsplanermanager.h

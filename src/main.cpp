@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
-#include <pruefungsplanermanager.h>
+#include "pruefungsplanermanager.h"
 #include <QtCore>
 
 int main(int argc, char *argv[])
