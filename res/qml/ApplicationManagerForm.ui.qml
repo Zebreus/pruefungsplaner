@@ -53,41 +53,10 @@ Item {
         sourceRect: Qt.rect(x, y, width, height)
     }
 
-    //TODO move to LoginPopupForm.ui.qml
-    Popup {
-        id: loginPopup
-        dim: true
-        modal: true
-        focus: true
-        anchors.centerIn: parent
-        padding: 0
-        width: myLoginPopup.width
-        height: myLoginPopup.height
-
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-
-        Overlay.modal: FastBlur {
-            source: effectSource
-            radius: 32
-            cached: false
-        }
-
-        LoginPopup {
-            id: myLoginPopup
-            width: 1000
-            height: 500
-        }
-
-        DropShadow {
-            width: loginPopup.width
-            height: loginPopup.height
-            visible: true
-            horizontalOffset: 0
-            verticalOffset: 0
-            radius: 10
-            samples: 5
-            color: "black"
-            source: myLoginPopup
-        }
+    LoginPopup {
+        width: 1000
+        height: 500
+        backgroundSource: effectSource
+        visible: true
     }
 }

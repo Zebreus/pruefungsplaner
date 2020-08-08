@@ -7,6 +7,7 @@ ApplicationManagerForm {
         onPlanClicked: stackLayout.currentIndex = 0;
         onCalendarClicked: stackLayout.currentIndex = 1;
     }
+
 }
 
 /*##^##
