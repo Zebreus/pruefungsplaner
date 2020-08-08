@@ -1,6 +1,6 @@
 QT += quick quickcontrols2 websockets
 
-CONFIG += c++11 debug
+CONFIG += c++14 debug
 
 include($$PWD/libs/pruefungsplaner-datamodel/pruefungsplaner-datamodel.pri)
 include($$PWD/libs/security-provider/client/client.pri)
@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/client.cpp \
+        src/connectionmanager.cpp \
         src/main.cpp \
         src/pruefungsplanermanager.cpp
 
@@ -38,4 +39,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/client.h \
+    src/connectionmanager.h \
     src/pruefungsplanermanager.h

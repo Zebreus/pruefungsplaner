@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include "pruefungsplanermanager.h"
+#include "connectionmanager.h"
 #include <QtCore>
 
 int main(int argc, char *argv[])
@@ -13,7 +14,10 @@ int main(int argc, char *argv[])
     //PruefungsplanerBackend::getInstance();
 
     //qmlRegisterType<PruefungsplanerBackend>("examples.backend", 1, 0, "BackEnd");
-    qmlRegisterSingletonType<PruefungsplanerManager>("org.pruefungsplaner.Backend", 1, 0, "Backend", &PruefungsplanerManager::getQmlInstance);
+    ConnectionManager* connectionManagerInstance = new ConnectionManager(QUrl("ws://localhost:9092"));
+    PruefungsplanerManager* planerInstance = PruefungsplanerManager::getInstance();
+    qmlRegisterSingletonInstance<ConnectionManager>("org.pruefungsplaner.ConnectionManager", 1, 0, "ConnectionManager", connectionManagerInstance);
+    qmlRegisterSingletonInstance<PruefungsplanerManager>("org.pruefungsplaner.Backend", 1, 0, "Backend", planerInstance);
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
