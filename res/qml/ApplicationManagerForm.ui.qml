@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
 
 Item {
     width: 1920
@@ -8,38 +9,85 @@ Item {
     property alias stackLayout: stackLayout
     property alias titleBar: titleBar
 
-    ColumnLayout {
+    Rectangle {
+        id: background
         anchors.fill: parent
-        spacing: 0
+        color: "white"
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 0
 
-        RowLayout {
-            z: 10
-            id: rowLayout
-            Layout.fillWidth: true
-            Layout.minimumHeight: 40
-
-            //Layout.preferredHeight: 40
-            //Layout.maximumHeight: 40
-            TitleBar {
-                id: titleBar
+            RowLayout {
+                id: rowLayout
                 Layout.fillWidth: true
+                Layout.minimumHeight: 40
+
+                TitleBar {
+                    id: titleBar
+                    Layout.fillWidth: true
+                }
+            }
+
+            StackLayout {
+                id: stackLayout
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                currentIndex: 0
+
+                PlanningView {
+                    id: planningView
+                }
+
+                ResultView {
+                    id: resultView
+                }
             }
         }
+    }
 
-        StackLayout {
-            id: stackLayout
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+    ShaderEffectSource {
+        id: effectSource
+        sourceItem: background
+        anchors.fill: parent
+        sourceRect: Qt.rect(x, y, width, height)
+    }
 
-            currentIndex: 0
+    //TODO move to LoginPopupForm.ui.qml
+    Popup {
+        id: loginPopup
+        dim: true
+        modal: true
+        focus: true
+        anchors.centerIn: parent
+        padding: 0
+        width: myLoginPopup.width
+        height: myLoginPopup.height
 
-            PlanningView {
-                id: planningView
-            }
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
-            ResultView {
-                id: resultView
-            }
+        Overlay.modal: FastBlur {
+            source: effectSource
+            radius: 32
+            cached: false
+        }
+
+        LoginPopup {
+            id: myLoginPopup
+            width: 1000
+            height: 500
+        }
+
+        DropShadow {
+            width: loginPopup.width
+            height: loginPopup.height
+            visible: true
+            horizontalOffset: 0
+            verticalOffset: 0
+            radius: 10
+            samples: 5
+            color: "black"
+            source: myLoginPopup
         }
     }
 }
