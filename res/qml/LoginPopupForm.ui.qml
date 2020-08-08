@@ -5,6 +5,10 @@ import QtQuick.Layouts 1.11
 Rectangle {
     width: 1000
     height: 600
+    property alias loginButton: loginButton
+    property alias errorLabel: errorLabel
+    property alias passwordField: passwordField
+    property alias usernameField: usernameField
 
     RowLayout {
         id: rowLayout
@@ -41,13 +45,29 @@ Rectangle {
                 Layout.preferredWidth: parent.width * 0.8
             }
 
-            Label {
-                id: label
-                text: qsTr("Wilkommen beim Prüfungsplaner")
-                font.pointSize: 15
-                Layout.preferredHeight: 5
+            ColumnLayout {
+                id: messageColumn
+                //Layout.preferredHeight: 5
+                Layout.minimumHeight: 50
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                //Layout.fillWidth: true
+                Layout.preferredWidth: parent.width
+                Label {
+                    id: label
+                    text: qsTr("Wilkommen beim Prüfungsplaner")
+                    font.pointSize: 15
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                }
+
+                Label {
+                    id: errorLabel
+                    color: "#dd0000"
+                    text: qsTr("Dein Nutzername und dein Passwort sind nicht korrekt. Bitte überprüfe deine Angaben und versuche es erneut.")
+                    wrapMode: Text.WordWrap
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.preferredWidth: parent.width * 0.65
+                }
             }
 
             ColumnLayout {
@@ -102,7 +122,7 @@ Rectangle {
                 }
 
                 Button {
-                    id: button
+                    id: loginButton
                     text: qsTr("Login")
                     Layout.topMargin: 10
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
