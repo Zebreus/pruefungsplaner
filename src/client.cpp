@@ -53,17 +53,17 @@
 //    }
 //}
 
-Client::Client(const QUrl &url, QObject *parent)
+Client::Client(const QUrl &url, const QString &token, QObject *parent):
+    QObject(parent), url(url), planning(false), token(token)
 {
     connect(&webSocket, &QWebSocket::connected, this, &Client::onConnected);
     connect(&timer, SIGNAL(timeout()), this, SLOT(requestProgress()));
-    this->url = url;
-    planning = false;
+    webSocket.open(QUrl(url));
 }
 
 void Client::updatePlan()
 {
-    webSocket.open(QUrl(url));
+    webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getPlans\",\"id\":\"3\"}");
 }
 
 void Client::startPlanning(QJsonValue plan)
@@ -80,7 +80,8 @@ void Client::onConnected()
     qDebug() << "WebSocket connected";
     connect(&webSocket, &QWebSocket::textMessageReceived, this, &Client::onTextMessageReceived);
     connect(&webSocket, &QWebSocket::binaryMessageReceived, this, &Client::onTextMessageReceived);
-    webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getPlans\",\"id\":\"3\"}");
+    QString loginRequest = QString("{\"jsonrpc\":\"2.0\",\"method\":\"login\",\"params\":\"[%1]\",\"id\":\"7\"}").arg(token);
+    webSocket.sendTextMessage(loginRequest);
 }
 
 void Client::onTextMessageReceived(QString message)
@@ -107,6 +108,13 @@ void Client::onTextMessageReceived(QString message)
         }
         emit setProgress(result.toInt());
         break;}
+    case 7:
+            if(result.toBool()){
+                emit loginSuccess();
+            }else{
+                emit loginFailed();
+            }
+            break;
     default:
         qDebug() << "Unknown id";
     }

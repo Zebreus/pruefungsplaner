@@ -19,9 +19,10 @@ class Client : public QObject
     QWebSocket webSocket;
     QTimer timer;
     bool planning;
+    QString token;
 
 public:
-    explicit Client(const QUrl &url, QObject *parent = nullptr);
+    explicit Client(const QUrl &url, const QString& token, QObject *parent = nullptr);
     void updatePlan();
     void startPlanning(QJsonValue plan);
 
@@ -29,6 +30,8 @@ signals:
     void gotResult(QJsonValue result);
     void finishedPlanning(QJsonValue result);
     void setProgress(int progress);
+    void loginFailed();
+    void loginSuccess();
 
 private Q_SLOTS:
     void onConnected();
