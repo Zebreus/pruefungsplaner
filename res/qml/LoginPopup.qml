@@ -10,13 +10,16 @@ LoginPopupForm {
         function onLoginError(message) {
             errorLabel.text = message;
         }
+
+        function onLoginSuccess(){
+            loginPopup.close();
+        }
     }
 
     Connections{
         target: loginButton
         onClicked: {
             ConnectionManager.login(usernameField.text, passwordField.text);
-            loginPopup.close();
         }
     }
 }

@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <security-provider/client.h>
+#include <QSharedPointer>
+#include "client.h"
 
 /*
  * The ConnectionManager should handle login and create a authorized connection to the server
@@ -13,7 +15,7 @@ class ConnectionManager : public QObject
     Q_PROPERTY(QString username READ getUsername WRITE setUsername NOTIFY usernameChanged)
 
 public:
-    explicit ConnectionManager(const QUrl& securityProviderUrl, QObject *parent = nullptr);
+    explicit ConnectionManager(const QUrl& securityProviderUrl, const QUrl& planerBackendUrl, QObject *parent = nullptr);
 
     QString getUsername() const;
 
@@ -29,11 +31,16 @@ public slots:
 private slots:
     void gotToken(QString token);
     void providerError(securityprovider::Client::Error error);
+    void planerLoginSuccess();
+    void planerLoginFailed();
+    void planerSocketError();
 
 private:
     QString token;
     QUrl securityProviderUrl;
-    securityprovider::Client client;
+    QUrl planerBackendUrl;
+    securityprovider::Client providerClient;
+    QSharedPointer<Client> planerClient;
     QString m_username;
 };
 
