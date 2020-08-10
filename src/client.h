@@ -19,21 +19,24 @@ class Client : public QObject
     QWebSocket webSocket;
     QTimer timer;
     bool planning;
-    QString token;
 
 public:
-    explicit Client(const QUrl &url, const QString& token, QObject *parent = nullptr);
+    explicit Client(const QUrl &url, QObject *parent = nullptr);
     void updatePlan();
     void startPlanning(QJsonValue plan);
 
+    void login(const QString &token);
+    void open();
 signals:
     void gotResult(QJsonValue result);
     void finishedPlanning(QJsonValue result);
     void setProgress(int progress);
+    void socketError();
     void loginFailed();
     void loginSuccess();
 
 private Q_SLOTS:
+    void onError(QAbstractSocket::SocketError onError);
     void onConnected();
     void onTextMessageReceived(QString message);
     void requestProgress();
