@@ -5,6 +5,7 @@
 #include <security-provider/client.h>
 #include <QSharedPointer>
 #include "client.h"
+#include "pruefungsplanermanager.h"
 
 /*
  * The ConnectionManager should handle login and create a authorized connection to the server

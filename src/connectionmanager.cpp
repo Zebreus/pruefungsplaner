@@ -66,6 +66,7 @@ void ConnectionManager::providerError(securityprovider::Client::Error error)
 void ConnectionManager::planerLoginSuccess()
 {
     qDebug() << "Successful login";
+    PruefungsplanerManager::getInstance()->setPlanerClient(planerClient);
     emit loginSuccess();
 }
 

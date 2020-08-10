@@ -34,6 +34,7 @@ class PruefungsplanerManager : public QObject
 public:
     static PruefungsplanerManager* getInstance();
     static QObject* getQmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
+    void setPlanerClient(QSharedPointer<Client> planerClient);
     QAbstractListModel* testList();
     QString userName();
     Plan* getActivePlan();
@@ -65,7 +66,7 @@ private:
     Plan* m_plan;
     Semester* activeSemester;
     QList<Semester*> semesters;
-    Client* client;
+    QSharedPointer<Client> client;
     int m_progress;
 };
 

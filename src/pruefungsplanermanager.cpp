@@ -158,12 +158,7 @@ PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent
     activeSemester = semesters.first();
     m_plan = activeSemester->getPlans().first();
 
-    client = new Client(QUrl("ws://localhost:56730"), this);
-    connect(client, &Client::gotResult,
-            this, &PruefungsplanerManager::gotResult);
-    connect(client, &Client::finishedPlanning, this, &PruefungsplanerManager::gotFinishedPlan);
-    connect(client, &Client::setProgress, this, &PruefungsplanerManager::gotProgress);
-    client->updatePlan();
+    client = nullptr;
 }
 
 PruefungsplanerManager* PruefungsplanerManager::instance = nullptr;
@@ -180,6 +175,20 @@ QObject* PruefungsplanerManager::getQmlInstance(QQmlEngine *engine, QJSEngine *s
     Q_UNUSED(scriptEngine);
 
     return PruefungsplanerManager::getInstance();
+}
+
+void PruefungsplanerManager::setPlanerClient(QSharedPointer<Client> planerClient)
+{
+    if(this->client == nullptr){
+        client = planerClient;
+        connect(client.data(), &Client::gotResult, this, &PruefungsplanerManager::gotResult);
+        connect(client.data(), &Client::finishedPlanning, this, &PruefungsplanerManager::gotFinishedPlan);
+        connect(client.data(), &Client::setProgress, this, &PruefungsplanerManager::gotProgress);
+        client->updatePlan();
+    }else{
+        //TODO This should in a more appropriate way
+        throw "Set client again";
+    }
 }
 
 QString PruefungsplanerManager::userName()
