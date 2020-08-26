@@ -90,9 +90,12 @@ Plan* createPlan(QObject* parent){
     group_a->setName("group a");
     Group* group_b = new Group(m_plan);
     group_b->setName("group b");
+    Group* group_c = new Group(m_plan);
+    group_c->setName("group c");
 
     m_plan->groups.append(group_a);
     m_plan->groups.append(group_b);
+    m_plan->groups.append(group_c);
     module_a->groups.append(group_a);
     module_a->groups.append(group_b);
     module_b->groups.append(group_a);

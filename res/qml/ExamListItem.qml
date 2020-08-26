@@ -2,6 +2,8 @@ import QtQuick 2.4
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.14
 
+import org.pruefungsplaner.Backend 1.0
+
 //ItemDelegate {
 //    id: delegate
 //    checkable: true
@@ -24,6 +26,31 @@ import QtQuick.Layouts 1.14
             }
         }
 
+        groupPopup.activeGroups: dataModel.groups
+        groupPopup.groups: Backend.activePlan.groups
+        Connections{
+            target: groupPopup
+            onActiveGroupsChanged: {
+                dataModel.groups = groupPopup.activeGroups;
+            }
+        }
+        Connections{
+            target: addGroupButton
+            onClicked: myItemDelegate.groupPopup.open();
+        }
+
+        constraintPopup.activeGroups: dataModel.constraints
+        constraintPopup.groups: Backend.activePlan.constraints
+        Connections{
+            target: constraintPopup
+            onActiveGroupsChanged: {
+                dataModel.constraints = constraintPopup.activeGroups;
+            }
+        }
+        Connections{
+            target: addConstraintButton
+            onClicked: myItemDelegate.constraintPopup.open();
+        }
     }
 /*    states: [
         State {

@@ -9,6 +9,10 @@ ItemDelegate {
     property real realHeight: showDetails ? examDetails.implicitHeight : 0
 
     property alias mainLayout: mainLayout
+    property alias addGroupButton: addGroupButton
+    property alias addConstraintButton: addConstraintButton
+    property alias groupPopup: groupPopup
+    property alias constraintPopup: constraintPopup
     checkable: true
     verticalPadding: 5
 
@@ -91,9 +95,18 @@ ItemDelegate {
                     }
                 }
             }
+
             Button {
                 id: addGroupButton
                 text: qsTr("Gruppe hinzufügen")
+
+                AddGroupPopup {
+                    id: groupPopup
+                    y: (parent.height / 3) * 2
+                    x: parent.width / 2
+                    anchors.centerIn: none
+                    visible: false
+                }
             }
 
             GroupBox {
@@ -126,6 +139,14 @@ ItemDelegate {
             Button {
                 id: addConstraintButton
                 text: qsTr("Bedingung hinzufügen")
+
+                AddGroupPopup {
+                    id: constraintPopup
+                    y: (parent.height / 3) * 2
+                    x: parent.width / 2
+                    anchors.centerIn: none
+                    visible: false
+                }
             }
         }
     }
