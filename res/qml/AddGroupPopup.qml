@@ -25,4 +25,13 @@ AddGroupPopupForm {
             popup.visibleGroups = groups;
         }
     }
+
+
+
+    Behavior on height {
+            NumberAnimation {
+                duration: 100
+                easing.type: Easing.Linear
+            }
+        }
 }

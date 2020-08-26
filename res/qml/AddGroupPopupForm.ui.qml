@@ -33,7 +33,8 @@ Popup {
     Rectangle {
         id: popupBackground
         color: "white"
-        anchors.fill: columnLayout
+        width: popup.width
+        height: popup.height
     }
 
     ColumnLayout {
@@ -74,35 +75,34 @@ Popup {
         Repeater {
             id: groupsRepeater
 
-            delegate:
-                CheckBox {
-                    id: groupCheckBox
-                    Layout.fillWidth: true
-                    leftPadding: 10
-                    topPadding: 3
-                    bottomPadding: 3
-                    display: AbstractButton.TextBesideIcon
-                    verticalPadding: 0
-                    checked: activeGroups.includes(modelData)
-                    text: modelData.name
-                    Connections {
-                        target: groupCheckBox
-                        onCheckedChanged: {
-                            var tempGroups = activeGroups
-                            if (groupCheckBox.checked) {
-                                tempGroups.push(modelData)
-                            } else {
-                                tempGroups.splice(tempGroups.indexOf(
-                                                      modelData), 1)
-                            }
-                            activeGroups = tempGroups
+            delegate: CheckBox {
+                id: groupCheckBox
+                Layout.fillWidth: true
+                leftPadding: 10
+                topPadding: 3
+                bottomPadding: 3
+                display: AbstractButton.TextBesideIcon
+                verticalPadding: 0
+                checked: activeGroups.includes(modelData)
+                text: modelData.name
+                Connections {
+                    target: groupCheckBox
+                    onCheckedChanged: {
+                        var tempGroups = activeGroups
+                        if (groupCheckBox.checked) {
+                            tempGroups.push(modelData)
+                        } else {
+                            tempGroups.splice(tempGroups.indexOf(modelData), 1)
                         }
+                        activeGroups = tempGroups
                     }
                 }
-
+            }
         }
 
-        Item{ height: 10}
+        Item {
+            height: 10
+        }
     }
 }
 
