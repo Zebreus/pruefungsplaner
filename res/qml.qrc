@@ -57,5 +57,7 @@
         <file>qml/DateEditorForm.ui.qml</file>
         <file>qml/LoginPopup.qml</file>
         <file>qml/LoginPopupForm.ui.qml</file>
+        <file>qml/AddGroupPopup.qml</file>
+        <file>qml/AddGroupPopupForm.ui.qml</file>
     </qresource>
 </RCC>
