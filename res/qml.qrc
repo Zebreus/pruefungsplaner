@@ -49,8 +49,6 @@
         <file>qml/ResultViewForm.ui.qml</file>
         <file>qml/DraggableExamDelegate.qml</file>
         <file>qml/DraggableExamDelegateForm.ui.qml</file>
-        <file>qml/NewGroupEditor.qml</file>
-        <file>qml/NewGroupEditorForm.ui.qml</file>
         <file>qml/ResultViewModuleItemForm.ui.qml</file>
         <file>qml/ResultViewModuleItem.qml</file>
         <file>qml/DateEditor.qml</file>
