@@ -1,6 +1,6 @@
 import QtQuick 2.4
 
-AvailabilityEditorForm {
+GroupEditorPopupForm {
     anchors.fill: parent
 
     property alias group: availabilityEditorForm.myGroup

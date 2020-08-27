@@ -75,7 +75,7 @@ SplitView {
                                 focus: true
                                 anchors.centerIn: Overlay.overlay
                                 closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-                                AvailabilityEditor {
+                                GroupEditorPopup {
                                     id: availabilityEditorPopup
                                     group: modelData
                                 }
@@ -163,7 +163,7 @@ SplitView {
                                 focus: true
                                 anchors.centerIn: Overlay.overlay
                                 closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-                                AvailabilityEditor {
+                                GroupEditorPopup {
                                     id: constraintAvailabilityEditorPopup
                                     group: modelData
                                 }

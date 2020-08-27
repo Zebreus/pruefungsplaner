@@ -39,8 +39,8 @@
         <file>qml/RemovableLabel.qml</file>
         <file>qml/PlanningView.qml</file>
         <file>qml/PlanningViewForm.ui.qml</file>
-        <file>qml/AvailabilityEditor.qml</file>
-        <file>qml/AvailabilityEditorForm.ui.qml</file>
+        <file>qml/GroupEditorPopup.qml</file>
+        <file>qml/GroupEditorPopupForm.ui.qml</file>
         <file>qml/ApplicationManager.qml</file>
         <file>qml/ApplicationManagerForm.ui.qml</file>
         <file>qml/TitleBar.qml</file>
