@@ -57,5 +57,7 @@
         <file>qml/LoginPopupForm.ui.qml</file>
         <file>qml/AddGroupPopup.qml</file>
         <file>qml/AddGroupPopupForm.ui.qml</file>
+        <file>qml/GroupCheckBox.qml</file>
+        <file>qml/GroupCheckBoxForm.ui.qml</file>
     </qresource>
 </RCC>

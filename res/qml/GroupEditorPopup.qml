@@ -7,7 +7,7 @@ GroupEditorPopupForm {
 
     Connections{
         target: editName
-        onClicked: {
+        function onClicked(){
             groupNameEdit.readOnly = false;
             groupNameEdit.selectAll();
             groupNameEdit.focus = true;
@@ -16,7 +16,7 @@ GroupEditorPopupForm {
 
     Connections{
         target: groupNameEdit
-        onEditingFinished:{
+        function onEditingFinished(){
             groupNameEdit.readOnly = true;
             groupNameEdit.deselect();
             group.name = groupNameEdit.text;

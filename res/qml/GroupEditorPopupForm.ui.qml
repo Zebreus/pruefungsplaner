@@ -102,23 +102,13 @@ Popup {
                     delegate: Repeater {
                         property int rowIndex: index
                         model: modelData.timeslots
-                        delegate: CheckBox {
+                        delegate: GroupCheckBox {
                             id: groupCheckBox
                             Layout.row: 2 + rowIndex + weekIndex * (maxDaysPerWeek + 2)
                             Layout.column: index + 1
-                            checked: modelData.containsActiveGroup(myGroup)
-                            display: AbstractButton.IconOnly
+                            timeslot: modelData
+                            group: myGroup
                             padding: 0
-                            Connections {
-                                target: groupCheckBox
-                                onCheckedChanged: {
-                                    if (groupCheckBox.checked) {
-                                        modelData.addActiveGroup(myGroup)
-                                    } else {
-                                        modelData.removeActiveGroup(myGroup)
-                                    }
-                                }
-                            }
                         }
                     }
                 }
