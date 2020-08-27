@@ -19,7 +19,7 @@ PlanningViewForm {
     Connections {
         target: newConstraintMouseArea
         onClicked: {
-            Backend.activePlan.addNewGroup("Bedingung");
+            Backend.activePlan.addNewConstraint("Bedingung");
             //TODO better solution to open popup
             constraintList.children[Backend.activePlan.constraints.length-1].children[0].children[0].clicked(false);
         }
