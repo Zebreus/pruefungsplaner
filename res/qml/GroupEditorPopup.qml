@@ -1,10 +1,9 @@
 import QtQuick 2.4
 
 GroupEditorPopupForm {
-    anchors.fill: parent
 
-    property alias group: availabilityEditorForm.myGroup
-    id: availabilityEditorForm
+    property alias group: groupEditor.myGroup
+    id: groupEditor
 
     Connections{
         target: editName

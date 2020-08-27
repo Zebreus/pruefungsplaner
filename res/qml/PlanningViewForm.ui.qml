@@ -68,17 +68,12 @@ SplitView {
                                 }
                             }
 
-                            Popup {
+                            GroupEditorPopup {
                                 id: groupEditorPopup
-                                dim: true
-                                modal: true
-                                focus: true
                                 anchors.centerIn: Overlay.overlay
+                                group: modelData
+                                visible: false
                                 closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-                                GroupEditorPopup {
-                                    id: availabilityEditorPopup
-                                    group: modelData
-                                }
                             }
 
                             Connections {
@@ -156,17 +151,12 @@ SplitView {
                                 }
                             }
 
-                            Popup {
+                            GroupEditorPopup {
                                 id: constraintEditorPopup
-                                dim: true
-                                modal: true
-                                focus: true
+                                visible: false
+                                group: modelData
                                 anchors.centerIn: Overlay.overlay
                                 closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-                                GroupEditorPopup {
-                                    id: constraintAvailabilityEditorPopup
-                                    group: modelData
-                                }
                             }
 
                             Connections {
@@ -262,10 +252,3 @@ SplitView {
         }
     }
 }
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
-
