@@ -140,9 +140,11 @@ Popup {
 
                         TextField {
                             id: usernameField
+                            text: ""
                             Layout.fillWidth: true
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                             placeholderText: ""
+                            selectByMouse: true
                         }
                     }
 
@@ -162,9 +164,12 @@ Popup {
 
                         TextField {
                             id: passwordField
+                            text: ""
                             Layout.fillWidth: true
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                             placeholderText: ""
+                            echoMode: TextInput.Password
+                            selectByMouse: true
                         }
                     }
 

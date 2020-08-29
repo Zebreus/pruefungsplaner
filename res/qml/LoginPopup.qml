@@ -9,6 +9,8 @@ LoginPopupForm {
         target: ConnectionManager
         function onLoginError(message) {
             errorLabel.text = message;
+            passwordField.text = "";
+            passwordField.focus = true;
         }
 
         function onLoginSuccess(){
@@ -17,9 +19,27 @@ LoginPopupForm {
     }
 
     Connections{
-        target: loginButton
-        onClicked: {
+        target: passwordField
+        function onAccepted() {
             ConnectionManager.login(usernameField.text, passwordField.text);
         }
+    }
+
+    Connections{
+        target: usernameField
+        function onAccepted() {
+            passwordField.focus = true;
+        }
+    }
+
+    Connections{
+        target: loginButton
+        function onClicked() {
+            ConnectionManager.login(usernameField.text, passwordField.text);
+        }
+    }
+
+    onOpened: {
+        usernameField.focus = true;
     }
 }
