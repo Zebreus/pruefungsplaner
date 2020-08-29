@@ -77,6 +77,8 @@ Popup {
             rows: 10
             flow: GridLayout.TopToBottom
             Layout.rightMargin: 20
+            columnSpacing: 0
+            rowSpacing: 0
             Repeater {
                 id: groupsRepeater
 
