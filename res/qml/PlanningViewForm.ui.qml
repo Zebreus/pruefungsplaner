@@ -17,27 +17,31 @@ SplitView {
     Layout.fillHeight: true
     Layout.fillWidth: true
 
-    Flickable {
+    ColumnLayout {
+        id: groupsLayout
+        //anchors.fill: parent
         SplitView.minimumWidth: 200
         SplitView.preferredWidth: 200
-        flickableDirection: Flickable.VerticalFlick
-        contentHeight: groupsLayout.implicitHeight
-        boundsBehavior: Flickable.DragOverBounds
 
-        ColumnLayout {
-            id: groupsLayout
-            anchors.fill: parent
+        GroupBox {
+            padding: 5
+            Layout.leftMargin: 6
+            Layout.rightMargin: 6
+            Layout.topMargin: 5
+            Layout.alignment: Qt.AlignTop
+            Layout.fillWidth: true
+            Layout.minimumHeight: 200
+            Layout.preferredHeight: groupList.height
+            Layout.maximumHeight: mainSplitView.height * 0.7
+            spacing: 0
+            title: qsTr("Gruppen")
+            Flickable {
+                flickableDirection: Flickable.VerticalFlick
+                contentHeight: groupList.implicitHeight
+                boundsBehavior: Flickable.DragOverBounds
+                anchors.fill: parent
+                clip: true
 
-            GroupBox {
-                padding: 5
-                Layout.leftMargin: 6
-                Layout.rightMargin: 6
-                Layout.topMargin: 5
-                Layout.alignment: Qt.AlignTop
-                Layout.fillWidth: true
-                Layout.minimumHeight: 200
-                spacing: 0
-                title: qsTr("Gruppen")
                 ColumnLayout {
                     id: groupList
                     anchors.right: parent.right
@@ -105,19 +109,28 @@ SplitView {
                     }
                 }
             }
+        }
 
-            GroupBox {
-                id: groupBox
-                padding: 5
-                Layout.leftMargin: 6
-                Layout.rightMargin: 6
-                Layout.topMargin: 5
-                Layout.alignment: Qt.AlignTop
-                Layout.fillWidth: true
-                Layout.minimumHeight: 200
-                spacing: 0
+        GroupBox {
+            id: groupBox
+            padding: 5
+            Layout.leftMargin: 6
+            Layout.rightMargin: 6
+            Layout.topMargin: 5
+            Layout.alignment: Qt.AlignTop
+            Layout.fillWidth: true
+            Layout.minimumHeight: 200
+            Layout.preferredHeight: constraintList.height
+            Layout.maximumHeight: mainSplitView.height * 0.7
+            spacing: 0
 
-                title: qsTr("Bedingungen")
+            title: qsTr("Bedingungen")
+            Flickable {
+                flickableDirection: Flickable.VerticalFlick
+                contentHeight: constraintList.implicitHeight
+                boundsBehavior: Flickable.DragOverBounds
+                anchors.fill: parent
+                clip: true
                 ColumnLayout {
                     id: constraintList
                     anchors.right: parent.right
@@ -187,10 +200,10 @@ SplitView {
                     }
                 }
             }
+        }
 
-            Item {
-                Layout.fillHeight: true
-            }
+        Item {
+            Layout.fillHeight: true
         }
     }
 
@@ -206,6 +219,7 @@ SplitView {
             Layout.fillHeight: true
             contentHeight: root.implicitHeight
             boundsBehavior: Flickable.DragOverBounds
+            clip: true
 
             Pane {
                 id: root
