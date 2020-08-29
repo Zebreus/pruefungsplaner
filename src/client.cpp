@@ -66,6 +66,14 @@ void Client::updatePlan()
     webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getPlans\",\"id\":\"3\"}");
 }
 
+void Client::save(QJsonValue semesters)
+{
+    QString message = "{\"jsonrpc\":\"2.0\",\"method\":\"setPlans\",\"params\":[";
+    message.append(QJsonDocument(semesters.toArray()).toJson(QJsonDocument::Compact));
+    message.append("],\"id\":\"9\"}");
+    webSocket.sendTextMessage(message);
+}
+
 void Client::startPlanning(QJsonValue plan)
 {
     QString message = "{\"jsonrpc\":\"2.0\",\"method\":\"startPlanning\",\"params\":[";

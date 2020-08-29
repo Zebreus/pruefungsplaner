@@ -264,6 +264,15 @@ int PruefungsplanerManager::getProgress() const
     return m_progress;
 }
 
+void PruefungsplanerManager::saveSemesters()
+{
+    QJsonArray jsonSemesters;
+    for(Semester* sp : semesters){
+        jsonSemesters.append(sp->toJsonObject());
+    }
+    client->save(jsonSemesters);
+}
+
 void PruefungsplanerManager::startPlanning()
 {
     qDebug() << "start planning";

@@ -45,6 +45,7 @@ public:
     void setSemesters(QList<Semester*> semesters);
     void setUserName(const QString &userName);
     int getProgress() const;
+    void saveSemesters();
     Q_INVOKABLE void startPlanning();
 
 signals:

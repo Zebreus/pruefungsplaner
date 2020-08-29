@@ -23,6 +23,7 @@ class Client : public QObject
 public:
     explicit Client(const QUrl &url, QObject *parent = nullptr);
     void updatePlan();
+    void save(QJsonValue semesters);
     void startPlanning(QJsonValue plan);
 
     void login(const QString &token);
