@@ -57,6 +57,7 @@ Popup {
             Layout.bottomMargin: 10
             TextField {
                 Layout.fillWidth: true
+                Layout.maximumWidth: 300
                 id: filterTextField
                 placeholderText: qsTr("")
             }
@@ -72,29 +73,35 @@ Popup {
             }
         }
 
-        Repeater {
-            id: groupsRepeater
+        GridLayout {
+            rows: 10
+            flow: GridLayout.TopToBottom
+            Layout.rightMargin: 20
+            Repeater {
+                id: groupsRepeater
 
-            delegate: CheckBox {
-                id: groupCheckBox
-                Layout.fillWidth: true
-                leftPadding: 10
-                topPadding: 3
-                bottomPadding: 3
-                display: AbstractButton.TextBesideIcon
-                verticalPadding: 0
-                checked: activeGroups.includes(modelData)
-                text: modelData.name
-                Connections {
-                    target: groupCheckBox
-                    onCheckedChanged: {
-                        var tempGroups = activeGroups
-                        if (groupCheckBox.checked) {
-                            tempGroups.push(modelData)
-                        } else {
-                            tempGroups.splice(tempGroups.indexOf(modelData), 1)
+                delegate: CheckBox {
+                    id: groupCheckBox
+                    Layout.fillWidth: true
+                    leftPadding: 10
+                    topPadding: 3
+                    bottomPadding: 3
+                    display: AbstractButton.TextBesideIcon
+                    verticalPadding: 0
+                    checked: activeGroups.includes(modelData)
+                    text: modelData.name
+                    Connections {
+                        target: groupCheckBox
+                        onCheckedChanged: {
+                            var tempGroups = activeGroups
+                            if (groupCheckBox.checked) {
+                                tempGroups.push(modelData)
+                            } else {
+                                tempGroups.splice(tempGroups.indexOf(
+                                                      modelData), 1)
+                            }
+                            activeGroups = tempGroups
                         }
-                        activeGroups = tempGroups
                     }
                 }
             }

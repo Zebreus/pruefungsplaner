@@ -27,12 +27,17 @@ AddGroupPopupForm {
         }
     }
 
-
-
     Behavior on height {
-            NumberAnimation {
-                duration: 100
-                easing.type: Easing.Linear
-            }
+        NumberAnimation {
+            duration: 100
+            easing.type: Easing.Linear
         }
+    }
+
+    Behavior on width {
+        NumberAnimation {
+            duration: 100
+            easing.type: Easing.Linear
+        }
+    }
 }
