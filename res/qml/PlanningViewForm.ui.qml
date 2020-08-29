@@ -24,6 +24,7 @@ SplitView {
         SplitView.preferredWidth: 200
 
         GroupBox {
+            id: groupsBox
             padding: 5
             Layout.leftMargin: 6
             Layout.rightMargin: 6
@@ -112,7 +113,7 @@ SplitView {
         }
 
         GroupBox {
-            id: groupBox
+            id: constraintsBox
             padding: 5
             Layout.leftMargin: 6
             Layout.rightMargin: 6
@@ -120,8 +121,8 @@ SplitView {
             Layout.alignment: Qt.AlignTop
             Layout.fillWidth: true
             Layout.minimumHeight: 200
-            Layout.preferredHeight: constraintList.height
-            Layout.maximumHeight: mainSplitView.height * 0.7
+            Layout.fillHeight: true
+            Layout.maximumHeight: constraintList.height < 200 ? 200 : constraintList.height
             spacing: 0
 
             title: qsTr("Bedingungen")
