@@ -21,6 +21,7 @@ AddGroupPopupForm {
     Connections{
         target: popup
         onOpened: {
+            popup.filterTextField.text = "";
             popup.filterTextField.focus = true;
             popup.visibleGroups = groups;
         }
