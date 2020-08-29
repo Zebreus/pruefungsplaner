@@ -45,7 +45,6 @@ public:
     void setSemesters(QList<Semester*> semesters);
     void setUserName(const QString &userName);
     int getProgress() const;
-    void saveSemesters();
     Q_INVOKABLE void startPlanning();
 
 signals:
@@ -59,6 +58,7 @@ public slots:
     void gotResult(QJsonValue result);
     void gotFinishedPlan(QJsonValue plan);
     void gotProgress(int progress);
+    void saveSemesters();
 
 private:
     explicit PruefungsplanerManager(QObject *parent = nullptr);
@@ -69,6 +69,8 @@ private:
     QList<Semester*> semesters;
     QSharedPointer<Client> client;
     int m_progress;
+    QTimer autosaveTimer;
+
 };
 
 #endif // PRUEFUNGSPLANERBACKEND_H

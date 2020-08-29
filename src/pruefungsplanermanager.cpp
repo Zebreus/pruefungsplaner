@@ -160,7 +160,7 @@ PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent
     //semesters.append(semester_b);
     activeSemester = semesters.first();
     m_plan = activeSemester->getPlans().first();
-
+    connect(&autosaveTimer, &QTimer::timeout, this, &PruefungsplanerManager::saveSemesters);
     client = nullptr;
 }
 
@@ -299,6 +299,7 @@ void PruefungsplanerManager::gotResult(QJsonValue result)
     }else{
         qDebug() << "No array";
     }
+    autosaveTimer.start(10000);
     //activeSemester = semesters.first();
     //m_plan = activeSemester->getPlans().first();
 }
