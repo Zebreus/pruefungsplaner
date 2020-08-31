@@ -94,7 +94,7 @@ Popup {
                     text: modelData.name
                     Connections {
                         target: groupCheckBox
-                        onCheckedChanged: {
+                        onClicked: {
                             var tempGroups = activeGroups
                             if (groupCheckBox.checked) {
                                 tempGroups.push(modelData)
