@@ -28,7 +28,6 @@ ItemDelegate {
 
                 CheckBox {
                     id: activeCheckBox
-                    text: qsTr("")
                     display: AbstractButton.IconOnly
                     checkable: true
                     autoRepeat: false
@@ -71,6 +70,7 @@ ItemDelegate {
             GroupBox {
                 id: groupBox
                 Layout.fillWidth: true
+                //: Heading for list of groups
                 title: qsTr("Gruppen")
                 spacing: 0
 
@@ -98,7 +98,8 @@ ItemDelegate {
 
             Button {
                 id: addGroupButton
-                text: qsTr("Gruppe hinzufügen")
+                //: Text for button to manage groups
+                text: qsTr("Gruppe hinzufügen", "add group")
 
                 AddGroupPopup {
                     id: groupPopup
@@ -112,6 +113,7 @@ ItemDelegate {
             GroupBox {
                 id: constraintBox
                 Layout.fillWidth: true
+                //: Heading for list of constraints
                 title: qsTr("Bedingungen")
                 spacing: 0
 
@@ -138,7 +140,8 @@ ItemDelegate {
             }
             Button {
                 id: addConstraintButton
-                text: qsTr("Bedingung hinzufügen")
+                //: Text for button to manage constraints
+                text: qsTr("Bedingung hinzufügen", "add constraint")
 
                 AddGroupPopup {
                     id: constraintPopup

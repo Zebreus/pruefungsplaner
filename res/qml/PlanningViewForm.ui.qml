@@ -35,6 +35,7 @@ SplitView {
             Layout.preferredHeight: groupList.height
             Layout.maximumHeight: mainSplitView.height * 0.7
             spacing: 0
+            //: Heading of groups section
             title: qsTr("Gruppen")
             Flickable {
                 flickableDirection: Flickable.VerticalFlick
@@ -97,7 +98,8 @@ SplitView {
                             anchors.fill: parent
 
                             Label {
-                                text: "Neue Gruppe"
+                                //: Button to add new group
+                                text: qsTr("Neue Gruppe", "create and add")
                                 Layout.fillWidth: true
                             }
 
@@ -125,6 +127,7 @@ SplitView {
             Layout.maximumHeight: constraintList.height < 200 ? 200 : constraintList.height
             spacing: 0
 
+            //: Heading of constraints section
             title: qsTr("Bedingungen")
             Flickable {
                 flickableDirection: Flickable.VerticalFlick
@@ -188,7 +191,8 @@ SplitView {
                             anchors.fill: parent
 
                             Label {
-                                text: "Neue Bedingung"
+                                //: Button to add new constraint
+                                text: qsTr("Neue Bedingung", "create and add")
                                 Layout.fillWidth: true
                             }
 

@@ -41,7 +41,8 @@ ToolBar {
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
             Label {
-                text: "Prüfungsplaner"
+                //: Application name
+                text: qsTr("Prüfungsplaner")
                 font.pointSize: 20
             }
         }
@@ -96,9 +97,5 @@ ToolBar {
     }
 }
 
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
+
 

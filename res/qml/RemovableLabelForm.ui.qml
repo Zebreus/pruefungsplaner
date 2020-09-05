@@ -76,7 +76,7 @@ Item {
 
                 Label {
                     id: removeLabel
-                    text: qsTr("")
+                    text: ""
                     padding: 2
                     color: myPalette.buttonText
                     rightPadding: 4

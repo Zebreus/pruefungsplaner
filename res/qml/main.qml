@@ -9,6 +9,7 @@ ApplicationWindow {
     visible: true
     width: 1920
     height: 1080
+    //: Title of application window
     title: qsTr("Prüfungsplaner")
     //minimumWidth: column.minimumWidth
 

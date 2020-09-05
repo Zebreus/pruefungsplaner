@@ -9,7 +9,8 @@ PlanningViewForm {
     Connections {
         target: newGroupMouseArea
         onClicked: {
-            Backend.activePlan.addNewGroup("Gruppe");
+            //: New group default name
+            Backend.activePlan.addNewGroup(qsTr("Gruppe"));
             //console.log(JSON.stringify(Backend.activePlan.weeks[0]));
             //TODO better solution to open popup
             groupList.children[Backend.activePlan.groups.length-1].children[0].children[0].clicked(false);
@@ -19,7 +20,8 @@ PlanningViewForm {
     Connections {
         target: newConstraintMouseArea
         onClicked: {
-            Backend.activePlan.addNewConstraint("Bedingung");
+            //: New constraint default name
+            Backend.activePlan.addNewConstraint(qsTr("Bedingung"));
             //TODO better solution to open popup
             constraintList.children[Backend.activePlan.constraints.length-1].children[0].children[0].clicked(false);
         }

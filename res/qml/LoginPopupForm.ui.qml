@@ -102,6 +102,7 @@ Popup {
                     Layout.preferredWidth: parent.width
                     Label {
                         id: label
+                        //: Greeting in login popup
                         text: qsTr("Wilkommen beim Prüfungsplaner")
                         font.pointSize: 15
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -110,7 +111,7 @@ Popup {
                     Label {
                         id: errorLabel
                         color: "#dd0000"
-                        //text: qsTr("Dein Nutzername und dein Passwort sind nicht korrekt. Bitte überprüfe deine Angaben und versuche es erneut.")
+                        //text: qsTr("Dein Nutzename und dein Passwort sind nicht korrekt. Bitte überprüfe deine Angaben und versuche es erneut.")
                         wrapMode: Text.WordWrap
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         Layout.preferredWidth: parent.width * 0.65
@@ -134,6 +135,7 @@ Popup {
                         Label {
                             id: usernameLabel
                             color: "#484848"
+                            //: Heading for username input
                             text: qsTr("Nutzername")
                             font.pointSize: 9
                         }
@@ -143,7 +145,8 @@ Popup {
                             text: ""
                             Layout.fillWidth: true
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            placeholderText: ""
+                            //: Placeholder for username input
+                            placeholderText: qsTr(" ", "username placeholder")
                             selectByMouse: true
                         }
                     }
@@ -158,6 +161,7 @@ Popup {
                         Label {
                             id: passwordLabel
                             color: "#484848"
+                            //: Heading for password input
                             text: qsTr("Passwort")
                             font.pointSize: 9
                         }
@@ -167,7 +171,8 @@ Popup {
                             text: ""
                             Layout.fillWidth: true
                             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            placeholderText: ""
+                            //: Placeholder for password input
+                            placeholderText: qsTr(" ", "password placeholder")
                             echoMode: TextInput.Password
                             selectByMouse: true
                         }
@@ -175,6 +180,7 @@ Popup {
 
                     Button {
                         id: loginButton
+                        //: Login button text
                         text: qsTr("Login")
                         Layout.topMargin: 10
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter

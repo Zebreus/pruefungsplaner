@@ -14,7 +14,8 @@ ItemDelegate {
 
         Button {
             id: moveButton
-            text: qsTr("Verschieben")
+            //: Button to move item
+            text: qsTr("Verschieben", "move action")
             flat: false
             icon.name: "drag_indicator"
             icon.source: "qrc:/icons/material/drag_indicator-24px.svg"

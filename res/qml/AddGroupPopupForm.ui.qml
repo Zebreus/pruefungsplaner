@@ -47,7 +47,8 @@ Popup {
             Layout.topMargin: 15
             Layout.bottomMargin: 10
             id: label
-            text: qsTr("Gruppe hinzufügen")
+            //: Heading of popup to select groups
+            text: qsTr("Gruppe hinzufügen", "popup heading")
         }
 
         RowLayout {
@@ -59,7 +60,8 @@ Popup {
                 Layout.fillWidth: true
                 Layout.maximumWidth: 300
                 id: filterTextField
-                placeholderText: qsTr("")
+                //: Placeholder for group filter field
+                placeholderText: qsTr(" ", "group filter placeholder")
             }
             Image {
                 id: image

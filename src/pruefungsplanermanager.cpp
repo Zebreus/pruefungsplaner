@@ -189,7 +189,7 @@ void PruefungsplanerManager::setPlanerClient(QSharedPointer<Client> planerClient
         connect(client.data(), &Client::setProgress, this, &PruefungsplanerManager::gotProgress);
         client->updatePlan();
     }else{
-        //TODO This should in a more appropriate way
+        //TODO This should be done in a more appropriate way
         throw "Set client again";
     }
 }

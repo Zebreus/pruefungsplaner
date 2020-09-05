@@ -48,16 +48,20 @@ void ConnectionManager::providerError(securityprovider::Client::Error error)
     QString message;
     switch(error){
         case securityprovider::Client::Error::SOCKET_ERROR:
-            message = "Der Authentifizierungsserver ist gerade nicht erreichbar. Versuch es später nochmal.";
+            //: Errormessage: auth server unreachable
+            message = tr("Der Authentifizierungsserver ist gerade nicht erreichbar. Versuch es später nochmal.");
         break;
         case securityprovider::Client::Error::SERVER_ERROR:
-            message = "Der Authentifizierungsserver hat ein Problem. Am besten schaust du mal nach ihm.";
+            //: Errormessage: auth server error
+            message = tr("Der Authentifizierungsserver hat ein Problem. Am besten schaust du mal nach ihm.");
         break;
         case securityprovider::Client::Error::INVALID_RESPONSE:
-            message = "Error: INVALID_RESPONSE";
+            //: Errormessage: auth server invalid response
+            message = tr("Der Authentifizierungsserver hat mit einer ungültige Nachricht geantwortet. Am besten schaust du mal nach ihm.");
         break;
         case securityprovider::Client::Error::UNEXPECTED_MESSAGE:
-            message = "Der Authentifizierungsserver sendet seltsame Nachrichten. Am besten schaust du mal nach ihm.";
+            //: Errormessage: auth server unexpected message
+            message = tr("Der Authentifizierungsserver sendet seltsame Nachrichten. Am besten schaust du mal nach ihm.");
     }
     qDebug() << "Provider Error : " << error;
     emit loginError(message);
@@ -73,11 +77,13 @@ void ConnectionManager::planerLoginSuccess()
 void ConnectionManager::planerLoginFailed()
 {
     qDebug() << "Invalid login";
-    emit loginError("Der Nutzername und das Password scheinen nicht zu passen. Bitte überprüfe deine Angaben und versuche es nochmal.");
+    //: Errormessage: invalid username or password
+    emit loginError(tr("Der Nutzername und das Password scheinen nicht zu passen. Bitte überprüfe deine Angaben und versuche es nochmal."));
 }
 
 void ConnectionManager::planerSocketError()
 {
     qDebug() << "Backend not available";
-    emit loginError("Der Pruefungsplanerserver ist gerade nicht erreichbar. Versuch es nachher nochmal.");
+    //: Errormessage: backend not available
+    emit loginError(tr("Der Pruefungsplanerserver ist gerade nicht erreichbar. Versuch es nachher nochmal."));
 }
