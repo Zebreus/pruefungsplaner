@@ -11,9 +11,10 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    //PruefungsplanerBackend::getInstance();
+    QTranslator translator;
+    translator.load(QLocale(), QLatin1String("planner"), QLatin1String("_"), QLatin1String(":/translations"));
+    app.installTranslator(&translator);
 
-    //qmlRegisterType<PruefungsplanerBackend>("examples.backend", 1, 0, "BackEnd");
     ConnectionManager* connectionManagerInstance = new ConnectionManager(QUrl("ws://localhost:9092"), QUrl("ws://localhost:9093"));
     PruefungsplanerManager* planerInstance = PruefungsplanerManager::getInstance();
     qmlRegisterSingletonInstance<ConnectionManager>("org.pruefungsplaner.ConnectionManager", 1, 0, "ConnectionManager", connectionManagerInstance);

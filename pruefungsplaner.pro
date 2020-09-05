@@ -1,6 +1,6 @@
 QT += quick quickcontrols2 websockets
 
-CONFIG += c++14 debug
+CONFIG += c++14 lrelease embed_translations
 
 include($$PWD/libs/pruefungsplaner-datamodel/pruefungsplaner-datamodel.pri)
 include($$PWD/libs/security-provider/client/client.pri)
@@ -31,6 +31,11 @@ QML_IMPORT_PATH =
 QML_DESIGNER_IMPORT_PATH =
 
 QT_QUICK_CONTROLS_STYLE=fusion
+
+QM_FILES_RESOURCE_PREFIX=/translations
+
+TRANSLATIONS += translations/planner_en.ts
+TRANSLATIONS += translations/planner_de.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
