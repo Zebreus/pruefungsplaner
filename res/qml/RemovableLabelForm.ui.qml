@@ -5,17 +5,18 @@ import QtQuick.Controls.Material 2.0
 import QtGraphicalEffects 1.12
 
 Item {
-    property string myText
-    signal removeClicked
-    signal clicked
+    id: root
+    width: rectangle.width
+    height: rectangle.height
+
+    property alias nameMouseArea: nameMouseArea
+    property alias removeMouseArea: removeMouseArea
+    property alias nameLabel: nameLabel
 
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
     }
-    id: root
-    width: rectangle.width
-    height: rectangle.height
 
     Rectangle {
         id: rectangle
@@ -49,7 +50,7 @@ Item {
 
                 Label {
                     id: nameLabel
-                    text: qsTr(myText)
+                    text: "placeholder"
                     padding: 2
                     color: myPalette.buttonText
                     leftPadding: 4
@@ -59,11 +60,6 @@ Item {
                     id: nameMouseArea
                     hoverEnabled: true
                     anchors.fill: parent
-                }
-
-                Connections {
-                    target: nameMouseArea
-                    onClicked: root.clicked()
                 }
             }
 
@@ -89,32 +85,7 @@ Item {
                     hoverEnabled: true
                     anchors.fill: parent
                 }
-
-                Connections {
-                    target: removeMouseArea
-                    onClicked: root.removeClicked()
-                }
             }
-        }
-    }
-
-    Connections {
-        target: nameMouseArea
-        onExited: {
-            root.state = ""
-        }
-        onEntered: {
-            root.state = "name hover"
-        }
-    }
-
-    Connections {
-        target: removeMouseArea
-        onExited: {
-            root.state = ""
-        }
-        onEntered: {
-            root.state = "remove hover"
         }
     }
 
