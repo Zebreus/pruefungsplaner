@@ -69,17 +69,19 @@ Item {
 
             Item {
                 id: removeElement
-                width: removeLabel.width
+                width: nameLabel.height
                 height: nameLabel.height
                 Layout.alignment: Qt.AlignLeft
                 clip: true
 
-                Label {
+                ToolButton {
                     id: removeLabel
-                    text: ""
-                    padding: 2
-                    color: myPalette.buttonText
-                    rightPadding: 4
+                    anchors.fill: parent
+                    padding: 1
+                    icon.name: "clear"
+                    icon.source: "qrc:/icons/material/clear-24px.svg"
+                    icon.color: myPalette.buttonText
+                    Layout.preferredWidth: parent.width * 0.8
                 }
 
                 MouseArea {
@@ -135,7 +137,7 @@ Item {
 
             PropertyChanges {
                 target: removeLabel
-                color: myPalette.midlight
+                icon.color: myPalette.midlight
             }
 
             PropertyChanges {
