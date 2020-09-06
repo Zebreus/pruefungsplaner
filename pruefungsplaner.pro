@@ -32,7 +32,7 @@ QML_DESIGNER_IMPORT_PATH =
 
 QT_QUICK_CONTROLS_STYLE=fusion
 
-QM_FILES_RESOURCE_PREFIX=/translations
+QM_FILES_RESOURCE_PREFIX = /translations
 
 TRANSLATIONS += translations/planner_en.ts
 TRANSLATIONS += translations/planner_de.ts
