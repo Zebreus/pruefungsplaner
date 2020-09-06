@@ -1,9 +1,13 @@
 import QtQuick 2.4
 
+import org.pruefungsplaner.Backend 1.0
+
 GroupEditorPopupForm {
 
     property alias group: groupEditor.myGroup
     id: groupEditor
+
+    daysRepeater.model: Backend.activePlan.weeks
 
     Connections{
         target: editName

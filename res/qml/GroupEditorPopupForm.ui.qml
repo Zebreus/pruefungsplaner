@@ -3,8 +3,6 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
-import org.pruefungsplaner.Backend 1.0
-
 Popup {
     id: popup
     modal: false
@@ -12,6 +10,7 @@ Popup {
     anchors.centerIn: parent
     padding: 0
     visible: true
+    property alias daysRepeater: daysRepeater
     width: columnLayout.width
     height: columnLayout.height
 
@@ -19,7 +18,7 @@ Popup {
     property alias groupNameEdit: groupNameEdit
     property int maxDaysPerWeek: 6
     property int maxSlotsPerDay: 6
-    property var myGroup
+    property var myGroup: dummysemesters.semesters[0].plans[0].groups[0]
 
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
@@ -80,7 +79,8 @@ Popup {
 
             // Insert day names
             Repeater {
-                model: Backend.activePlan.weeks
+                id: daysRepeater
+                model: dummysemesters.semesters[0].plans[0].weeks
                 delegate: Repeater {
                     property int weekIndex: index
                     model: modelData.days
@@ -94,7 +94,7 @@ Popup {
 
             // Insert checkboxes
             Repeater {
-                model: Backend.activePlan.weeks
+                model: daysRepeater.model
                 delegate: Repeater {
                     property int weekIndex: index
                     id: outerRepeater
@@ -116,7 +116,7 @@ Popup {
 
             //Insert dividers
             Repeater {
-                model: Backend.activePlan.weeks
+                model: daysRepeater.model
                 delegate: ToolSeparator {
                     Layout.row: index * (maxDaysPerWeek + 2)
                     Layout.fillWidth: true
@@ -130,7 +130,7 @@ Popup {
 
             //Insert hour names
             Repeater {
-                model: Backend.activePlan.weeks
+                model: daysRepeater.model
                 delegate: Repeater {
                     property int weekIndex: index
                     model: modelData.days[0].timeslots
@@ -144,3 +144,10 @@ Popup {
         }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.75}
+}
+##^##*/
+
