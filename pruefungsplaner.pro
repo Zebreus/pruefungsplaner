@@ -46,3 +46,6 @@ HEADERS += \
     src/client.h \
     src/connectionmanager.h \
     src/pruefungsplanermanager.h
+
+DISTFILES += \
+    res/qml/dummydata/dummysemesters.qml \
