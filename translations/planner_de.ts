@@ -140,7 +140,7 @@
         <location filename="../res/qml/PlanningView.qml" line="24"/>
         <source>Bedingung</source>
         <extracomment>New constraint default name</extracomment>
-        <translation type="unfinished">Neue Bedingung</translation>
+        <translation>Neue Bedingung</translation>
     </message>
 </context>
 <context>
