@@ -66,6 +66,24 @@ Popup {
         }
 
         //Grid will be filled by Repeater
+        RowLayout {
+            id: settingsRow
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            Layout.fillWidth: true
+
+            Text {
+                id: perDayLabel
+                text: qsTr("Prüfungen pro Tag")
+            }
+
+            SpinBox {
+                id: perDaySelector
+                to: 5
+                from: 1
+                value: 1
+            }
+        }
+
         GridLayout {
             id: mainGrid
             Layout.topMargin: -7
