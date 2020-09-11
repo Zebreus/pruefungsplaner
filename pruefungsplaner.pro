@@ -30,8 +30,6 @@ QML_IMPORT_PATH =
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
-QT_QUICK_CONTROLS_STYLE=fusion
-
 QM_FILES_RESOURCE_PREFIX = /translations
 
 TRANSLATIONS += translations/planner_en.ts
@@ -48,4 +46,4 @@ HEADERS += \
     src/pruefungsplanermanager.h
 
 DISTFILES += \
-    res/qml/dummydata/dummysemesters.qml \
+    res/qml/dummydata/dummysemesters.qml
