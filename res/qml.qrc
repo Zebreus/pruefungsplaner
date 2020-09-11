@@ -60,5 +60,7 @@
         <file>qml/AddGroupPopupForm.ui.qml</file>
         <file>qml/GroupCheckBox.qml</file>
         <file>qml/GroupCheckBoxForm.ui.qml</file>
+        <file>qml/CalendarTimeslot.qml</file>
+        <file>qml/CalendarTimeslotForm.ui.qml</file>
     </qresource>
 </RCC>
