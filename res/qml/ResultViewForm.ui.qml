@@ -3,85 +3,138 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.3
 import QtQuick.Extras 1.4
 import Qt.labs.settings 1.0
-import org.pruefungsplaner.Backend 1.0
 
-Column {
-    anchors.fill: parent
-    Layout.fillHeight: true
-    Layout.fillWidth: true
+Item {
+    width: 640
+    height: 480
+    property alias weeksRepeater: weeksRepeater
+    property alias timeslotLabelRepeater: timeslotLabelRepeater
+    property alias dayLabelWeekRepeater: dayLabelWeekRepeater
+    property alias weekLabelRepeater: weekLabelRepeater
+
+    property var daysPerWeek: 6
+    property var weeks: 3
+    property var slotsPerDay: 6
+
     Flickable {
         anchors.fill: parent
-        flickableDirection: Flickable.VerticalFlick
-        contentHeight: groupsLayout.implicitHeight
+        flickableDirection: Flickable.HorizontalFlick
+        contentWidth: mainGrid.implicitWidth
         boundsBehavior: Flickable.DragOverBounds
-        ColumnLayout {
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillWidth: true
-            id: columnLayout
-            anchors.fill: parent
+        ScrollBar.horizontal: ScrollBar {
+            interactive: true
+        }
+
+        Rectangle {
+            anchors.fill: mainGrid
+            color: "black"
+        }
+
+        GridLayout {
+            id: mainGrid
+            height: parent.height
+            width: parent.parent.width > implicitWidth ? parent.parent.width : implicitWidth
+            columnSpacing: 1
+            rowSpacing: 1
+
+            Rectangle {
+                Layout.row: 0
+                Layout.column: 0
+                Layout.rowSpan: 2
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                color: "white"
+            }
+
+            //Fill day labels
+            Repeater {
+                id: weekLabelRepeater
+                model: dummysemesters.semesters[0].plans[0].weeks
+                delegate: Label {
+                    Layout.row: 0
+                    Layout.column: 1 + (index * daysPerWeek)
+                    Layout.columnSpan: daysPerWeek
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: implicitHeight
+                    padding: 3
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    text: modelData.name
+                    background: Rectangle {
+                        color: "white"
+                    }
+                }
+            }
+
+            //Fill day labels
+            Repeater {
+                id: dayLabelWeekRepeater
+                model: dummysemesters.semesters[0].plans[0].weeks
+                delegate: Repeater {
+                    property int weekIndex: index
+                    id: dayLabelDayRepeater
+                    model: modelData.days
+                    delegate: Label {
+                        Layout.row: 1
+                        Layout.column: 1 + (weekIndex * daysPerWeek + index)
+                        Layout.fillWidth: true
+                        padding: 3
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        text: modelData.name
+                        background: Rectangle {
+                            color: "white"
+                        }
+                    }
+                }
+            }
+
+            //Fill timeslots
+            Repeater {
+                id: timeslotLabelRepeater
+                model: dummysemesters.semesters[0].plans[0].weeks[0].days[0].timeslots
+                delegate: Label {
+                    Layout.row: index + 2
+                    Layout.column: 0
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    padding: 3
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    text: modelData.name
+                    background: Rectangle {
+                        color: "white"
+                    }
+                }
+            }
+
+            //Fill modules
             Repeater {
                 id: weeksRepeater
-                model: Backend.activePlan.weeks
-                delegate: ColumnLayout {
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    id: columnLayout2
-                    Layout.fillWidth: true
-
-                    Label {
-                        text: modelData.name
-                    }
-
-                    ColumnLayout {
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                        id: columnLayout25
-                        Layout.leftMargin: 10
-                        Layout.fillWidth: true
-                        Repeater {
-                            id: weeksRepeater2
-                            model: modelData.days
-                            delegate: ColumnLayout {
-                                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                                id: columnLayout3
-                                Layout.fillWidth: true
-
-                                Label {
-                                    text: modelData.name
-                                }
-
-                                ColumnLayout {
-                                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                                    id: columnLayout35
-                                    Layout.fillWidth: true
-                                    Layout.leftMargin: 10
-
-                                    Repeater {
-                                        id: weeksRepeater3
-                                        model: modelData.timeslots
-                                        delegate: ColumnLayout {
-                                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                                            id: columnLayout45
-                                            Layout.fillWidth: true
-
-                                            Label {
-                                                text: modelData.name
-                                                Layout.fillWidth: true
-                                            }
-                                            RowLayout {
-                                                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                                                id: rowLayout45
-                                                Layout.fillWidth: true
-                                                Repeater {
-                                                    id: weeksRepeater4
-                                                    model: modelData.modules
-                                                    delegate: ResultViewModuleItem {
-                                                        dataModel: modelData
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                model: dummysemesters.semesters[0].plans[0].weeks
+                delegate: Repeater {
+                    property int weekIndex: index
+                    id: daysRepeater
+                    model: modelData.days
+                    delegate: Repeater {
+                        property int dayIndex: index
+                        id: timeslotsRepeater
+                        model: modelData.timeslots
+                        delegate: CalendarTimeslot {
+                            //Layout.row: index * 2
+                            //Layout.column: (weekIndex * daysPerWeek + dayIndex) * 2
+                            Layout.row: index + 2
+                            Layout.column: (weekIndex * daysPerWeek + dayIndex) + 1
+                            timeslot: modelData
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Rectangle {
+                                anchors.fill: parent
+                                color: "white"
+                                z: -1
                             }
+
+                            //text: "hi"
                         }
                     }
                 }
@@ -149,3 +202,10 @@ Column {
     //        }
     //    }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.25}
+}
+##^##*/
+
