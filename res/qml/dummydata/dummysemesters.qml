@@ -714,13 +714,40 @@ Item {
                                     "timeslots": [{
                                             "activeGroups": [130, 133, 135, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 10,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [141],
+                                                    "id": 221,
+                                                    "name": "Codierungstheorie",
+                                                    "number": "41.4934",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }, {
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [141],
+                                                    "id": 222,
+                                                    "name": "Computer Graphik",
+                                                    "number": "41.4834",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 1",
                                             "objectName": ""
                                         }, {
                                             "activeGroups": [130, 133, 135, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 11,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [145, 146, 166, 172, 152],
+                                                    "id": 177,
+                                                    "name": "Netzwerke",
+                                                    "number": "30.7102",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 2",
                                             "objectName": ""
                                         }, {
@@ -732,13 +759,40 @@ Item {
                                         }, {
                                             "activeGroups": [130, 133, 135, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 13,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [151],
+                                                    "id": 178,
+                                                    "name": "Programmieren / Algorithmen und Datenstrukturen 1",
+                                                    "number": "30.7104,A",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 4",
                                             "objectName": ""
                                         }, {
                                             "activeGroups": [130, 133, 135, 140, 141, 175],
                                             "id": 14,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [142, 169],
+                                                    "id": 179,
+                                                    "name": "Programmieren / Algorithmen und Datenstrukturen 1",
+                                                    "number": "30.7104,B",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }, {
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [144, 157],
+                                                    "id": 181,
+                                                    "name": "Programmieren / Algorithmen und Datenstrukturen 1",
+                                                    "number": "30.7104,D",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 5",
                                             "objectName": ""
                                         }, {
@@ -761,7 +815,25 @@ Item {
                                         }, {
                                             "activeGroups": [130, 133, 135, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 17,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [143, 163],
+                                                    "id": 180,
+                                                    "name": "Programmieren / Algorithmen und Datenstrukturen 1",
+                                                    "number": "30.7104,C",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }, {
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [145, 146, 164, 170, 158, 152],
+                                                    "id": 182,
+                                                    "name": "Rechnerarchitektur",
+                                                    "number": "30.7106",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 2",
                                             "objectName": ""
                                         }, {
@@ -779,7 +851,16 @@ Item {
                                         }, {
                                             "activeGroups": [130, 133, 135, 137, 140, 141, 175],
                                             "id": 20,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [142, 143, 144, 163, 169, 151],
+                                                    "id": 183,
+                                                    "name": "Technische Grundlagen der Informatik",
+                                                    "number": "30.7108",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 5",
                                             "objectName": ""
                                         }, {
@@ -802,19 +883,55 @@ Item {
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 23,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [142, 143, 144, 157, 151],
+                                                    "id": 184,
+                                                    "name": "Einführung in die Wirtschaftsinformatik",
+                                                    "number": "30.7114",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }, {
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [142, 143, 144, 163, 169, 157, 151],
+                                                    "id": 185,
+                                                    "name": "Grundlagen der diskreten Mathematik",
+                                                    "number": "30.7116",
+                                                    "objectName": "",
+                                                    "origin": "MN"
+                                                }],
                                             "name": "Block 2",
                                             "objectName": ""
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 24,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [142, 143, 144, 163, 169, 157, 151],
+                                                    "id": 186,
+                                                    "name": "IT-Sicherheit",
+                                                    "number": "30.7126",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 3",
                                             "objectName": ""
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 25,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [147, 166, 154],
+                                                    "id": 187,
+                                                    "name": "Mikroprozessorsysteme",
+                                                    "number": "30.7204",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 4",
                                             "objectName": ""
                                         }, {
@@ -849,7 +966,16 @@ Item {
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 30,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [145, 146, 164, 170, 158, 152],
+                                                    "id": 188,
+                                                    "name": "Objektorientierte Analyse und Design",
+                                                    "number": "30.7206",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 3",
                                             "objectName": ""
                                         }, {
@@ -867,7 +993,25 @@ Item {
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 175],
                                             "id": 33,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [145, 152],
+                                                    "id": 189,
+                                                    "name": "Programmieren / Algorithmen und Datenstrukturen 2",
+                                                    "number": "30.7208,A",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }, {
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [146],
+                                                    "id": 190,
+                                                    "name": "Programmieren / Algorithmen und Datenstrukturen 2",
+                                                    "number": "30.7208,B",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 6",
                                             "objectName": ""
                                         }]
@@ -878,19 +1022,46 @@ Item {
                                     "timeslots": [{
                                             "activeGroups": [130, 133, 134, 135, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 34,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [145, 146, 163, 169, 160, 151],
+                                                    "id": 191,
+                                                    "name": "IT-Recht und Datenschutz",
+                                                    "number": "30.7214",
+                                                    "objectName": "",
+                                                    "origin": "GS"
+                                                }],
                                             "name": "Block 1",
                                             "objectName": ""
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 35,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [145, 146, 164, 170, 158, 152],
+                                                    "id": 192,
+                                                    "name": "Lineare Algebra und Wahrscheinlichkeitsrechnung",
+                                                    "number": "30.7216",
+                                                    "objectName": "",
+                                                    "origin": "MN"
+                                                }],
                                             "name": "Block 2",
                                             "objectName": ""
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175],
                                             "id": 36,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [147, 168, 172, 159, 154],
+                                                    "id": 193,
+                                                    "name": "Betriebssysteme",
+                                                    "number": "30.7300",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 3",
                                             "objectName": ""
                                         }, {
@@ -902,13 +1073,31 @@ Item {
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 138, 175],
                                             "id": 38,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [147, 166, 172, 159, 154],
+                                                    "id": 194,
+                                                    "name": "Datenbanken 1",
+                                                    "number": "30.7312",
+                                                    "objectName": "",
+                                                    "origin": ""
+                                                }],
                                             "name": "Block 5",
                                             "objectName": ""
                                         }, {
                                             "activeGroups": [130, 133, 134, 135, 175],
                                             "id": 39,
-                                            "modules": [],
+                                            "modules": [{
+                                                    "active": true,
+                                                    "constraints": [],
+                                                    "groups": [147, 156],
+                                                    "id": 195,
+                                                    "name": "Grundlagen der Analysis",
+                                                    "number": "30.7314",
+                                                    "objectName": "",
+                                                    "origin": "MN"
+                                                }],
                                             "name": "Block 6",
                                             "objectName": ""
                                         }]
