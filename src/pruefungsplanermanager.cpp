@@ -185,8 +185,8 @@ void PruefungsplanerManager::setPlanerClient(QSharedPointer<Client> planerClient
     if(this->client == nullptr){
         client = planerClient;
         connect(client.data(), &Client::gotResult, this, &PruefungsplanerManager::gotResult);
-        connect(client.data(), &Client::finishedPlanning, this, &PruefungsplanerManager::gotFinishedPlan);
-        connect(client.data(), &Client::setProgress, this, &PruefungsplanerManager::gotProgress);
+        //connect(client.data(), &Client::finishedPlanning, this, &PruefungsplanerManager::gotFinishedPlan);
+        //connect(client.data(), &Client::setProgress, this, &PruefungsplanerManager::gotProgress);
         client->updatePlan();
     }else{
         //TODO This should be done in a more appropriate way
@@ -276,8 +276,17 @@ void PruefungsplanerManager::saveSemesters()
 void PruefungsplanerManager::startPlanning()
 {
     qDebug() << "start planning";
-    QJsonValue plan = getActivePlan()->toJsonObject();
-    client->startPlanning(plan);
+    QJsonObject plan = getActivePlan()->toJsonObject();
+//TODO create connection somewhere else. Probably in ConnectionManager.
+    if(m_progress == 100 || schedulerClient == nullptr){
+    gotProgress(0);
+    schedulerClient  .reset(new SchedulerClient(QUrl("ws://127.0.0.1:9094")));
+    connect(schedulerClient.data(), &SchedulerClient::finishedScheduling, this, &PruefungsplanerManager::gotFinishedPlan);
+    connect(schedulerClient.data(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
+    //TODO connect socket error
+    schedulerClient->open();
+    schedulerClient->startScheduling(plan);
+    }
 }
 
 void PruefungsplanerManager::gotResult(QJsonValue result)
@@ -315,4 +324,16 @@ void PruefungsplanerManager::gotProgress(int progress)
 {
     m_progress = progress;
     emit progressChanged(m_progress);
+}
+
+void PruefungsplanerManager::createNewSemester(QString name, Semester *base)
+{
+    Semester* newSemester = new Semester(this);
+    if(base != nullptr){
+        //TODO wont work
+        newSemester->fromJsonObject(base->toJsonObject());
+    }
+    newSemester->setName(name);
+    this->semesters.append(newSemester);
+    emit semestersChanged(this->semesters);
 }

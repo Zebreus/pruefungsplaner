@@ -17,6 +17,7 @@
 #include <timeslot.h>
 #include <week.h>
 #include "client.h"
+#include "schedulerclient.h"
 
 class QQmlEngine;
 class QJSEngine;
@@ -58,6 +59,7 @@ public slots:
     void gotResult(QJsonValue result);
     void gotFinishedPlan(QJsonValue plan);
     void gotProgress(int progress);
+    void createNewSemester(QString name, Semester* base);
     void saveSemesters();
 
 private:
@@ -70,6 +72,7 @@ private:
     QSharedPointer<Client> client;
     int m_progress;
     QTimer autosaveTimer;
+    QSharedPointer<SchedulerClient> schedulerClient;
 
 };
 
