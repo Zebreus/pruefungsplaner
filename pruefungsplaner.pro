@@ -20,7 +20,8 @@ SOURCES += \
         src/client.cpp \
         src/connectionmanager.cpp \
         src/main.cpp \
-        src/pruefungsplanermanager.cpp
+        src/pruefungsplanermanager.cpp \
+        src/schedulerclient.cpp
 
 RESOURCES += res/qml.qrc
 
@@ -43,7 +44,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     src/client.h \
     src/connectionmanager.h \
-    src/pruefungsplanermanager.h
+    src/pruefungsplanermanager.h \
+    src/schedulerclient.h
 
 DISTFILES += \
     res/qml/dummydata/dummysemesters.qml
