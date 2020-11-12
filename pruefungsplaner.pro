@@ -1,6 +1,6 @@
 QT += quick quickcontrols2 websockets svg
 
-CONFIG += c++14 lrelease embed_translations
+CONFIG += c++2a lrelease embed_translations
 
 include($$PWD/libs/pruefungsplaner-datamodel/pruefungsplaner-datamodel.pri)
 include($$PWD/libs/security-provider/client/client.pri)

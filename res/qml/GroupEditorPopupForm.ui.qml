@@ -68,19 +68,46 @@ Popup {
         //Grid will be filled by Repeater
         RowLayout {
             id: settingsRow
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillWidth: true
 
-            Text {
-                id: perDayLabel
-                text: qsTr("Prüfungen pro Tag")
+            Layout.fillWidth: true
+            spacing: 10
+            Layout.leftMargin: 10
+            Layout.rightMargin: 10
+            RowLayout {
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Text {
+                    id: perDayLabel
+                    text: qsTr("Prüfungen pro Tag")
+                }
+
+                SpinBox {
+                    id: perDaySelector
+                    to: 5
+                    from: 1
+                    value: 1
+                }
             }
 
-            SpinBox {
-                id: perDaySelector
-                to: 5
-                from: 1
-                value: 1
+            ToolSeparator {
+                Layout.fillWidth: true
+                orientation: Qt.Vertical
+                Layout.columnSpan: maxSlotsPerDay + 1
+            }
+
+            RowLayout {
+                id: priorityRow
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.fillWidth: true
+
+                Text {
+                    //id: perDayLabel
+                    text: qsTr("Kategorie")
+                }
+
+                ComboBox {
+                    id: comboBox
+                    model: ["Aktiv", "Inaktiv", "Klein", "Veraltet"]
+                }
             }
         }
 
