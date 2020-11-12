@@ -148,6 +148,8 @@ Popup {
                         property int rowIndex: index
                         model: modelData.timeslots
                         delegate: GroupCheckBox {
+                            Layout.alignment: Qt.AlignCenter
+                            Layout.fillWidth: true
                             id: groupCheckBox
                             Layout.row: 2 + rowIndex + weekIndex * (maxDaysPerWeek + 2)
                             Layout.column: index + 1
@@ -180,9 +182,12 @@ Popup {
                     property int weekIndex: index
                     model: modelData.days[0].timeslots
                     delegate: Label {
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.fillWidth: true
                         Layout.column: 1 + index
                         Layout.row: 1 + weekIndex * (maxDaysPerWeek + 2)
                         text: modelData.name
+                        horizontalAlignment: Text.AlignHCenter
                     }
                 }
             }
