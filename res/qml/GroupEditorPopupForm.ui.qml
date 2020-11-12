@@ -10,6 +10,8 @@ Popup {
     anchors.centerIn: parent
     padding: 0
     visible: true
+    property alias categorySelector: categorySelector
+    property alias perDaySelector: perDaySelector
     property alias daysRepeater: daysRepeater
     width: columnLayout.width
     height: columnLayout.height
@@ -84,7 +86,7 @@ Popup {
                     id: perDaySelector
                     to: 5
                     from: 1
-                    value: 1
+                    value: myGroup.examsPerDay
                 }
             }
 
@@ -95,7 +97,6 @@ Popup {
             }
 
             RowLayout {
-                id: priorityRow
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 Layout.fillWidth: true
 
@@ -105,7 +106,7 @@ Popup {
                 }
 
                 ComboBox {
-                    id: comboBox
+                    id: categorySelector
                     model: ["Aktiv", "Inaktiv", "Klein", "Veraltet"]
                 }
             }
