@@ -84,7 +84,7 @@ Popup {
 
                 SpinBox {
                     id: perDaySelector
-                    to: 5
+                    to: 6
                     from: 1
                     value: myGroup.examsPerDay
                 }

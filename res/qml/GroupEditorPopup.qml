@@ -15,9 +15,9 @@ GroupEditorPopupForm {
             switch (index) {
             case 0:
                 //active
-                group.active = true
                 group.small = false
                 group.obsolete = false
+                group.active = true
                 break
             case 1:
                 //inactive
@@ -28,8 +28,8 @@ GroupEditorPopupForm {
             case 2:
                 //small
                 group.active = false
-                group.small = true
                 group.obsolete = false
+                group.small = true
                 break
             case 3:
                 //obsolete
@@ -41,35 +41,14 @@ GroupEditorPopupForm {
         }
     }
 
+    categorySelector {
+        currentIndex: group.active ? 0 : group.small ? 2 : group.obsolete ? 3 : 1
+    }
+
     Connections {
-        target: group
-        //TODO This is probably dependen on the order in which things are set
-        function onActiveChanged(active) {
-            if (!active) {
-                categorySelector.currentIndex = 1
-            } else {
-                if (!group.small && !group.obsolete) {
-                    categorySelector.currentIndex = 0
-                }
-            }
-        }
-        function onSmallChanged(small) {
-            if (small) {
-                categorySelector.currentIndex = 2
-            } else {
-                if (group.active && !group.obsolete) {
-                    categorySelector.currentIndex = 0
-                }
-            }
-        }
-        function onObsoleteChanged(obsolete) {
-            if (obsolete) {
-                categorySelector.currentIndex = 3
-            } else {
-                if (group.active && !group.obsolete) {
-                    categorySelector.currentIndex = 0
-                }
-            }
+        target: perDaySelector
+        function onValueModified() {
+            group.examsPerDay = perDaySelector.value
         }
     }
 
