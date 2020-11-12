@@ -62,9 +62,11 @@ Plan* createPlan(QObject* parent){
     module_b->setOrigin("FBI");
     module_b->setActive(false);
 
-    m_plan->modules.append(module_a);
-    m_plan->modules.append(module_b);
-    m_plan->modules.append(module_b);
+    QList<Module*> modules;
+    modules.append(module_a);
+    modules.append(module_b);
+    modules.append(module_b);
+    m_plan->setModules(modules);
 
     Group* constraint_a = new Group(m_plan);
     constraint_a->setName("Constraint a");
@@ -75,16 +77,22 @@ Plan* createPlan(QObject* parent){
     Group* constraint_d = new Group(m_plan);
     constraint_d->setName("Constraint d");
 
-    m_plan->constraints.append(constraint_a);
-    m_plan->constraints.append(constraint_b);
-    m_plan->constraints.append(constraint_c);
-    m_plan->constraints.append(constraint_d);
-    module_a->constraints.append(constraint_a);
-    module_a->constraints.append(constraint_b);
-    module_a->constraints.append(constraint_b);
-    module_a->constraints.append(constraint_d);
-    module_b->constraints.append(constraint_b);
-    module_b->constraints.append(constraint_c);
+    QList<Group*> constraints;
+    constraints.append(constraint_a);
+    constraints.append(constraint_b);
+    constraints.append(constraint_c);
+    constraints.append(constraint_d);
+    m_plan->setConstraints(constraints);
+    QList<Group*> constraintsA;
+    constraintsA.append(constraint_a);
+    constraintsA.append(constraint_b);
+    constraintsA.append(constraint_b);
+    constraintsA.append(constraint_d);
+    module_a->setConstraints(constraintsA);
+    QList<Group*> constraintsB;
+    constraintsB.append(constraint_b);
+    constraintsB.append(constraint_c);
+    module_b->setConstraints(constraintsB);
 
     Group* group_a = new Group(m_plan);
     group_a->setName("group a");
@@ -93,12 +101,18 @@ Plan* createPlan(QObject* parent){
     Group* group_c = new Group(m_plan);
     group_c->setName("group c");
 
-    m_plan->groups.append(group_a);
-    m_plan->groups.append(group_b);
-    m_plan->groups.append(group_c);
-    module_a->groups.append(group_a);
-    module_a->groups.append(group_b);
-    module_b->groups.append(group_a);
+    QList<Group*> groups;
+    groups.append(group_a);
+    groups.append(group_b);
+    groups.append(group_c);
+    m_plan->setGroups(groups);
+    QList<Group*> groupsA;
+    groupsA.append(group_a);
+    groupsA.append(group_b);
+    module_a->setGroups(groupsA);
+    QList<Group*> groupsB;
+    groupsB.append(group_a);
+    module_b->setGroups(groupsB);
 
     Week* week_a = new Week(m_plan);
     week_a->setName("Week a");
@@ -110,9 +124,11 @@ Plan* createPlan(QObject* parent){
     addDays(week_a);
     addDays(week_b);
     addDays(week_c);
-    m_plan->weeks.append(week_a);
-    m_plan->weeks.append(week_b);
-    m_plan->weeks.append(week_c);
+    QList<Week*> weeks;
+    weeks.append(week_a);
+    weeks.append(week_b);
+    weeks.append(week_c);
+    m_plan->setWeeks(weeks);
 
     QList<Group*> activeGroups;
     activeGroups.append(constraint_a);
