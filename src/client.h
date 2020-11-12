@@ -24,23 +24,20 @@ public:
     explicit Client(const QUrl &url, QObject *parent = nullptr);
     void updatePlan();
     void save(QJsonValue semesters);
-    void startPlanning(QJsonValue plan);
-
     void login(const QString &token);
     void open();
 signals:
     void gotResult(QJsonValue result);
-    void finishedPlanning(QJsonValue result);
-    void setProgress(int progress);
     void socketError();
     void loginFailed();
     void loginSuccess();
+    void savingFailed();
+    void savingSuccess();
 
 private Q_SLOTS:
     void onError(QAbstractSocket::SocketError onError);
     void onConnected();
     void onTextMessageReceived(QString message);
-    void requestProgress();
 };
 
 #endif // CLIENT_H

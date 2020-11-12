@@ -63,24 +63,15 @@ Client::Client(const QUrl &url, QObject *parent):
 
 void Client::updatePlan()
 {
-    webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getPlans\",\"id\":\"3\"}");
+    webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getSemesters\",\"id\":\"3\"}");
 }
 
 void Client::save(QJsonValue semesters)
 {
-    QString message = "{\"jsonrpc\":\"2.0\",\"method\":\"setPlans\",\"params\":[";
+    QString message = "{\"jsonrpc\":\"2.0\",\"method\":\"setSemesters\",\"params\":[";
     message.append(QJsonDocument(semesters.toArray()).toJson(QJsonDocument::Compact));
     message.append("],\"id\":\"9\"}");
     webSocket.sendTextMessage(message);
-}
-
-void Client::startPlanning(QJsonValue plan)
-{
-    QString message = "{\"jsonrpc\":\"2.0\",\"method\":\"startPlanning\",\"params\":[";
-    message.append(QJsonDocument(plan.toObject()).toJson(QJsonDocument::Compact));
-    message.append("],\"id\":\"4\"}");
-    webSocket.sendTextMessage(message);
-    timer.start(500);
 }
 
 void Client::open()
@@ -88,7 +79,7 @@ void Client::open()
     webSocket.open(QUrl(url));
 }
 
-void Client::onError(QAbstractSocket::SocketError error)
+void Client::onError(QAbstractSocket::SocketError)
 {
     emit socketError();
 }
@@ -116,37 +107,24 @@ void Client::onTextMessageReceived(QString message)
         case 3:
             emit gotResult(result);
             break;
-    case 6:
-            emit finishedPlanning(result);
-            break;
-    case 5:
-    {
-        int progress = result.toInt();
-        if(progress == 100){
-            timer.stop();
-            webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getPlannedPlan\",\"id\":\"6\"}");
-            planning = false;
-        }
-        emit setProgress(result.toInt());
-        break;}
     case 7:
-            qDebug() << "got " << result;
+            qDebug() << "Login result: " << result;
             if(result.toBool()){
                 emit loginSuccess();
             }else{
                 emit loginFailed();
             }
             break;
+    case 9:
+            qDebug() << "Saving result: " << result;
+            if(result.toBool()){
+                emit savingSuccess();
+            }else{
+                emit savingFailed();
+            }
+            break;
     default:
         qDebug() << "Unknown id";
     }
 
-}
-
-void Client::requestProgress()
-{
-    webSocket.sendTextMessage("{\"jsonrpc\":\"2.0\",\"method\":\"getPlanningProgress\",\"id\":\"5\"}");
-    if(planning){
-        timer.start(500);
-    }
 }
