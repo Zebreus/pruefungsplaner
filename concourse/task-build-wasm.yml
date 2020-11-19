@@ -1,0 +1,17 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: madmanfred/qt-webassembly
+    tag: "qt5.15-em1.39.7"
+
+inputs:
+  - name: pruefungsplaner-frontend
+    optional: false
+
+run:
+  path: /qt-webassembly/entrypoint
+  args: ["qmake", "&&", "make"]
+  dir: ./pruefungsplaner-frontend/
