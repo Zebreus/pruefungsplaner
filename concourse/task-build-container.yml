@@ -1,0 +1,25 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: vito/oci-build-task
+
+inputs:
+  - name: built-frontend
+    path: public-html
+    optional: false
+  - name: pruefungsplaner-frontend
+    optional: false
+
+outputs:
+  - name: image
+
+params:
+  DOCKERFILE: pruefungsplaner-frontend/concourse/Dockerfile
+            
+caches:
+ - path: /emsdk_portable/.data/cache
+
+run:
+  path: build
