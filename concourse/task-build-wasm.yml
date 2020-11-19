@@ -11,7 +11,16 @@ inputs:
   - name: pruefungsplaner-frontend
     optional: false
 
+outputs:
+  - name: built-frontend
+
+params:
+  optimization_level: 0
+
+caches:
+ - path: /emsdk_portable/.data/cache
+
 run:
   path: /qt-webassembly/entrypoint
-  args: ["qmake", "&&", "make"]
-  dir: ./pruefungsplaner-frontend/
+  args: ["qmake", "pruefungsplaner.pro", "QMAKE_CXXFLAGS_RELEASE='-O${optimization_level}'", "QMAKE_LFLAGS_RELEASE='-O${optimization_level}'", "DESTDIR='../built-frontend'", "&&", "make -j4"]
+  dir: ./pruefungsplaner-frontend
