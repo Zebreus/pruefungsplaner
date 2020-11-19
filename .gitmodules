@@ -1,6 +1,6 @@
 [submodule "src/dataModel"]
 	path = libs/pruefungsplaner-datamodel
-	url = git@github.com:Zebreus/pruefungsplaner-datamodel.git
+	url = https://github.com/Zebreus/pruefungsplaner-datamodel.git
 [submodule "libs/security-provider"]
 	path = libs/security-provider
-	url = git@github.com:Zebreus/securityProvider.git
+	url = https://github.com/Zebreus/securityProvider.git
