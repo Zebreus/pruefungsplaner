@@ -1,6 +1,6 @@
-import QtQuick 2.4
-import QtQuick.Controls 2.13
-import QtQuick.Layouts 1.14
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
 ItemDelegate {
     id: delegate
@@ -13,6 +13,7 @@ ItemDelegate {
     property alias addConstraintButton: addConstraintButton
     property alias groupPopup: groupPopup
     property alias constraintPopup: constraintPopup
+    property alias activeCheckBox: activeCheckBox
     checkable: true
     verticalPadding: 5
 
@@ -88,8 +89,9 @@ ItemDelegate {
                             text: modelData.name
                             Connections {
                                 target: groupLabel
-                                onRemoveClicked: delegate.myModelData.removeGroup(
-                                                     modelData)
+                                function onRemoveClicked() {
+                                    delegate.myModelData.removeGroup(modelData)
+                                }
                             }
                         }
                     }
@@ -105,7 +107,6 @@ ItemDelegate {
                     id: groupPopup
                     y: (parent.height / 3) * 2
                     x: parent.width / 2
-                    anchors.centerIn: none
                     visible: false
                 }
             }
@@ -131,8 +132,10 @@ ItemDelegate {
                             text: modelData.name
                             Connections {
                                 target: constraintLabel
-                                onRemoveClicked: delegate.myModelData.removeConstraint(
-                                                     modelData)
+                                function onRemoveClicked() {
+                                    delegate.myModelData.removeConstraint(
+                                                modelData)
+                                }
                             }
                         }
                     }
@@ -147,16 +150,10 @@ ItemDelegate {
                     id: constraintPopup
                     y: (parent.height / 3) * 2
                     x: parent.width / 2
-                    anchors.centerIn: none
                     visible: false
                 }
             }
         }
-    }
-
-    Connections {
-        target: activeCheckBox
-        onCheckedChanged: delegate.myModelData.active = activeCheckBox.checked
     }
 
     states: [
