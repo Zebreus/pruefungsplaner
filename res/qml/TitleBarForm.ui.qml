@@ -2,8 +2,6 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Layouts 1.3
 
-import org.pruefungsplaner.Backend 1.0
-
 ToolBar {
     position: ToolBar.Header
 
@@ -17,6 +15,10 @@ ToolBar {
     property alias menuButton: menuButton
     bottomPadding: 5
     topPadding: 5
+
+    width: 1980
+    height: 100
+
     RowLayout {
         id: row
         anchors.fill: parent
@@ -84,7 +86,7 @@ ToolBar {
                 id: buildProgress
                 from: 0
                 to: 100
-                value: Backend.progress
+                value: 0
             }
 
             ToolButton {
@@ -97,5 +99,9 @@ ToolBar {
     }
 }
 
-
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.5}
+}
+##^##*/
 

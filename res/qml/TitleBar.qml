@@ -4,32 +4,32 @@ import org.pruefungsplaner.Backend 1.0
 
 TitleBarForm {
 
-    signal planClicked()
-    signal calendarClicked()
+    signal planClicked
+    signal calendarClicked
 
-    semesterSelector{
+    semesterSelector {
         model: Backend.semesters
     }
 
-    planSelector{
+    planSelector {
         model: Backend.activeSemester.plans
     }
 
     Connections {
         target: semesterSelector
-        onActivated: {
-            if(index != -1){
-                Backend.activeSemester = Backend.semesters[index];
-                Backend.activePlan = Backend.activeSemester.plans[0];
+        function onActivated() {
+            if (index != -1) {
+                Backend.activeSemester = Backend.semesters[index]
+                Backend.activePlan = Backend.activeSemester.plans[0]
             }
         }
     }
 
     Connections {
         target: planSelector
-        onActivated: {
-            if(index != -1){
-                Backend.activePlan = Backend.activeSemester.plans[index];
+        function onActivated() {
+            if (index != -1) {
+                Backend.activePlan = Backend.activeSemester.plans[index]
             }
         }
     }
@@ -44,18 +44,24 @@ TitleBarForm {
 
     Connections {
         target: buildButton
-        onClicked: Backend.startPlanning()
+        function onClicked() {
+            Backend.startPlanning()
+        }
     }
 
     Connections {
         target: overviewButton
-        onClicked: planClicked()
+        function onClicked() {
+            planClicked()
+        }
     }
 
     Connections {
         target: resultButton
-        onClicked: calendarClicked()
+        function onClicked() {
+            calendarClicked()
+        }
     }
 
-
+    buildProgress.value: Backend.progress
 }
