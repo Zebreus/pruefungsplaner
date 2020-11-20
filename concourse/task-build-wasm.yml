@@ -16,11 +16,12 @@ outputs:
 
 params:
   optimization_level: 0
+  make_threads: 4
 
 caches:
  - path: /emsdk_portable/.data/cache
 
 run:
   path: /qt-webassembly/entrypoint
-  args: ["qmake", "pruefungsplaner.pro", "QMAKE_CXXFLAGS_RELEASE='-O${optimization_level}'", "QMAKE_LFLAGS_RELEASE='-O${optimization_level}'", "DESTDIR='../built-frontend'", "&&", "make -j4"]
+  args: ["bash", "./concourse/build-wasm.sh"]
   dir: ./pruefungsplaner-frontend
