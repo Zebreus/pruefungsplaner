@@ -2,7 +2,7 @@
 #define CONNECTIONMANAGER_H
 
 #include <QObject>
-#include <security-provider/client.h>
+#include <pruefungsplaner-auth/client.h>
 #include <QSharedPointer>
 #include "client.h"
 #include "pruefungsplanermanager.h"
@@ -31,7 +31,7 @@ public slots:
 
 private slots:
     void gotToken(QString token);
-    void providerError(securityprovider::Client::Error error);
+    void providerError(pruefungsplanerAuth::Client::Error error);
     void planerLoginSuccess();
     void planerLoginFailed();
     void planerSocketError();
@@ -40,7 +40,7 @@ private:
     QString token;
     QUrl securityProviderUrl;
     QUrl planerBackendUrl;
-    securityprovider::Client providerClient;
+    pruefungsplanerAuth::Client providerClient;
     QSharedPointer<Client> planerClient;
     QString m_username;
 };

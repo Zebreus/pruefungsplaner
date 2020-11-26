@@ -7,8 +7,8 @@ ConnectionManager::ConnectionManager(const QUrl &securityProviderUrl, const QUrl
     connect(planerClient.data(), &Client::loginFailed, this, &ConnectionManager::planerLoginFailed);
     connect(planerClient.data(), &Client::loginSuccess, this, &ConnectionManager::planerLoginSuccess);
     connect(planerClient.data(), &Client::socketError, this, &ConnectionManager::planerSocketError);
-    connect(&providerClient, &securityprovider::Client::gotToken, this, &ConnectionManager::gotToken);
-    connect(&providerClient, &securityprovider::Client::error, this, &ConnectionManager::providerError);
+    connect(&providerClient, &pruefungsplanerAuth::Client::gotToken, this, &ConnectionManager::gotToken);
+    connect(&providerClient, &pruefungsplanerAuth::Client::error, this, &ConnectionManager::providerError);
     //connect(&client, &securityprovider::Client::onConnected, [](){qDebug() << "connected";});
     providerClient.open(securityProviderUrl);
     planerClient->open();
@@ -43,23 +43,23 @@ void ConnectionManager::gotToken(QString token)
     planerClient->login(token);
 }
 
-void ConnectionManager::providerError(securityprovider::Client::Error error)
+void ConnectionManager::providerError(pruefungsplanerAuth::Client::Error error)
 {
     QString message;
     switch(error){
-        case securityprovider::Client::Error::SOCKET_ERROR:
+        case pruefungsplanerAuth::Client::Error::SOCKET_ERROR:
             //: Errormessage: auth server unreachable
             message = tr("Der Authentifizierungsserver ist gerade nicht erreichbar. Versuch es später nochmal.");
         break;
-        case securityprovider::Client::Error::SERVER_ERROR:
+        case pruefungsplanerAuth::Client::Error::SERVER_ERROR:
             //: Errormessage: auth server error
             message = tr("Der Authentifizierungsserver hat ein Problem. Am besten schaust du mal nach ihm.");
         break;
-        case securityprovider::Client::Error::INVALID_RESPONSE:
+        case pruefungsplanerAuth::Client::Error::INVALID_RESPONSE:
             //: Errormessage: auth server invalid response
             message = tr("Der Authentifizierungsserver hat mit einer ungültige Nachricht geantwortet. Am besten schaust du mal nach ihm.");
         break;
-        case securityprovider::Client::Error::UNEXPECTED_MESSAGE:
+        case pruefungsplanerAuth::Client::Error::UNEXPECTED_MESSAGE:
             //: Errormessage: auth server unexpected message
             message = tr("Der Authentifizierungsserver sendet seltsame Nachrichten. Am besten schaust du mal nach ihm.");
     }
