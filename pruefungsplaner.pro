@@ -36,9 +36,26 @@ QM_FILES_RESOURCE_PREFIX = /translations
 TRANSLATIONS += translations/planner_en.ts
 TRANSLATIONS += translations/planner_de.ts
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+wasm{
+#     QMAKE_WASM_PTHREAD_POOL_SIZE = 4
+#     QMAKE_WASM_TOTAL_MEMORY = 1GB
+}
+
+wasm{
+    #target.files += $${TARGET}.js
+    #target.files += $${TARGET}.html
+    #target.files += qtlogo.svg
+    target.files += $${TARGET}.wasm
+    target.files += res/web/index.html
+    target.files += res/web/favicon.ico
+    target.files += res/web/rings.svg
+    target.files += qtloader.js
+    target.path += /
+    target.CONFIG += no_check_exist
+}else:unix{
+    target.path = /usr/bin
+}
+
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
