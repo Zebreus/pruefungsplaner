@@ -4,3 +4,6 @@
 [submodule "libs/security-provider"]
 	path = libs/security-provider
 	url = https://github.com/Zebreus/securityProvider.git
+[submodule "libs/cpptoml"]
+	path = libs/cpptoml
+	url = https://github.com/skystrife/cpptoml.git
