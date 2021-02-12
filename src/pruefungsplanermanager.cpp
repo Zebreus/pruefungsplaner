@@ -196,6 +196,11 @@ QObject* PruefungsplanerManager::getQmlInstance(QQmlEngine *engine, QJSEngine *s
     return PruefungsplanerManager::getInstance();
 }
 
+void PruefungsplanerManager::setConfiguration(QSharedPointer<Configuration> configuration)
+{
+    this->configuration = configuration;
+}
+
 void PruefungsplanerManager::setPlanerClient(QSharedPointer<Client> planerClient)
 {
     if(this->client == nullptr){
@@ -296,7 +301,7 @@ void PruefungsplanerManager::startPlanning()
 //TODO create connection somewhere else. Probably in ConnectionManager.
     if(m_progress == 100 || schedulerClient == nullptr){
     gotProgress(0);
-    schedulerClient  .reset(new SchedulerClient(QUrl("ws://127.0.0.1:9094")));
+    schedulerClient .reset(new SchedulerClient(configuration->getSchedulerUrl()));
     connect(schedulerClient.data(), &SchedulerClient::finishedScheduling, this, &PruefungsplanerManager::gotFinishedPlan);
     connect(schedulerClient.data(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
     //TODO connect socket error

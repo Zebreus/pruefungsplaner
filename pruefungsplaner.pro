@@ -4,6 +4,7 @@ CONFIG += c++2a lrelease embed_translations
 
 include($$PWD/libs/pruefungsplaner-datamodel/pruefungsplaner-datamodel.pri)
 include($$PWD/libs/security-provider/client/client.pri)
+INCLUDEPATH += $$PWD/libs/cpptoml/include
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -18,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/client.cpp \
+        src/configuration.cpp \
         src/connectionmanager.cpp \
         src/main.cpp \
         src/pruefungsplanermanager.cpp \
@@ -60,6 +62,7 @@ wasm{
 
 HEADERS += \
     src/client.h \
+    src/configuration.h \
     src/connectionmanager.h \
     src/pruefungsplanermanager.h \
     src/schedulerclient.h

@@ -18,6 +18,7 @@
 #include <week.h>
 #include "client.h"
 #include "schedulerclient.h"
+#include "configuration.h"
 
 class QQmlEngine;
 class QJSEngine;
@@ -35,6 +36,7 @@ class PruefungsplanerManager : public QObject
 public:
     static PruefungsplanerManager* getInstance();
     static QObject* getQmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
+    void setConfiguration(QSharedPointer<Configuration> configuration);
     void setPlanerClient(QSharedPointer<Client> planerClient);
     QAbstractListModel* testList();
     QString userName();
@@ -73,6 +75,7 @@ private:
     int m_progress;
     QTimer autosaveTimer;
     QSharedPointer<SchedulerClient> schedulerClient;
+    QSharedPointer<Configuration> configuration;
 
 };
 
