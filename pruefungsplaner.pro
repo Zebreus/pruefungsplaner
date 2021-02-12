@@ -56,6 +56,12 @@ wasm{
     target.CONFIG += no_check_exist
 }else:unix{
     target.path = /usr/bin
+
+    # Install default config file
+    config.path = /etc/$${TARGET}/
+    config.files = res/config.toml
+    !isEmpty(config.path): INSTALLS += config
+
 }
 
 !isEmpty(target.path): INSTALLS += target
@@ -69,3 +75,5 @@ HEADERS += \
 
 DISTFILES += \
     res/qml/dummydata/dummysemesters.qml
+
+DEFINES += DEFAULT_CONFIG_PATH=\"\\\"$${config.path}\\\"\"
