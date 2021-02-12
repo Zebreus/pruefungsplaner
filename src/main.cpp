@@ -12,10 +12,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QSharedPointer<Configuration> configuration(new Configuration(app.arguments()));
 
-    std::clog << "Auth url" << configuration->getAuthUrl().toString().toStdString() << '\n';
-    std::clog << "Backend url" << configuration->getBackendUrl().toString().toStdString() << '\n';
-    std::clog << "Scheduler url" << configuration->getSchedulerUrl().toString().toStdString() << '\n';
-
     QTranslator translator;
     translator.load(QLocale(), QLatin1String("planner"), QLatin1String("_"), QLatin1String(":/translations"));
     app.installTranslator(&translator);
