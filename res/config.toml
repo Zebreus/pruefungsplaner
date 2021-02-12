@@ -1,0 +1,11 @@
+[auth]
+# The url of the auth service
+#url = "ws://127.0.0.1:9092"
+
+[backend]
+# The url of the backend service
+#url = "ws://127.0.0.1:9093"
+
+[scheduler]
+# The url of the scheduler service
+#url = "ws://127.0.0.1:9094"
