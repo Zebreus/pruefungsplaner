@@ -51,6 +51,7 @@ wasm{
     target.files += res/web/index.html
     target.files += res/web/favicon.ico
     target.files += res/web/rings.svg
+    target.files += res/config.toml
     target.files += qtloader.js
     target.path += /
     target.CONFIG += no_check_exist
