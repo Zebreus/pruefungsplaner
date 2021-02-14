@@ -8,3 +8,5 @@ RUN mkdir -p /install && cd /pruefungsplaner-frontend/ && qmake && make -j4 inst
 FROM nginx:alpine
 MAINTAINER Lennart E.
 COPY --from=frontend-builder /install/ /usr/share/nginx/html
+COPY ./res/create-config.sh /docker-entrypoint.d/create-config.sh
+RUN chmod a+x /docker-entrypoint.d/create-config.sh
