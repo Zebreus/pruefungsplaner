@@ -1,7 +1,10 @@
 #include "configuration.h"
 
-Configuration::Configuration(const QList<QString>& arguments, QObject* parent)
+Configuration::Configuration(QObject* parent)
     : QObject(parent) {
+}
+
+void Configuration::initialize(const QList<QString> &arguments){
     QCommandLineParser parser;
     parser.setApplicationDescription("Pruefungsplaner frontend");
     parser.addHelpOption();
@@ -36,11 +39,7 @@ Configuration::Configuration(const QList<QString>& arguments, QObject* parent)
     backendUrl = parser.value(backendUrlOption);
     schedulerUrl = parser.value(schedulerUrlOption);
 
-    QString configurationFileContent =
-            selectConfigurationFile(parser.value(configFileOption));
-    loadConfiguration(configurationFileContent);
-
-    checkConfiguration();
+    selectConfigurationFile(parser.value(configFileOption));
 }
 
 QUrl Configuration::getAuthUrl() const {
@@ -55,70 +54,111 @@ QUrl Configuration::getSchedulerUrl() const {
     return schedulerUrl;
 }
 
-QString Configuration::selectConfigurationFile(const QString& preferredFile) {
-    if (preferredFile == "") {
-        for (auto configFilePath : defaultConfigurationFiles) {
-            QSharedPointer<QString> content = openFile(configFilePath);
-            if (content != nullptr) {
-                return *content;
-            }
-        }
+void Configuration::selectConfigurationFile(const QString& preferredFile) {
+    if(preferredFile != ""){
+        filePaths.append(preferredFile);
+    }
+    for (auto configFilePath : defaultConfigurationFiles) {
+        filePaths.append(configFilePath);
+    }
 
-        QString defaultConfigFilesMessage;
-        if (defaultConfigurationFiles.size() > 0) {
-            defaultConfigFilesMessage = "create one at ";
-            for (uint i = 0; i < defaultConfigurationFiles.size() - 1; i++) {
-                defaultConfigFilesMessage += defaultConfigurationFiles[i];
-                defaultConfigFilesMessage += ", ";
+    //If using emscripten, then relative paths are also relative http urls
+#ifdef __EMSCRIPTEN__
+    char* myUrl = (char*)EM_ASM_INT(
+                var location = window.location;
+            var myUrl = location.origin + location.pathname.substring(0, location.pathname.lastIndexOf('/')+1);
+    return allocate(intArrayFromString(myUrl), 'i8', ALLOC_STACK);
+    );
+    std::clog << "My c++ url is (" << myUrl << ")" << myUrl << '\n';
+    QString qUrl(myUrl);
+
+
+    for(int i = 0;i<filePaths.size();i++){
+        if(!filePaths[i].startsWith("/")){
+            filePaths.insert(i+1, QString(myUrl) + filePaths[i]);
+            ++i;
+        }
+    }
+#endif
+
+    openNextFile();
+}
+
+void Configuration::openNextFile(){
+    if(filePaths.size() == 0){
+        failConfiguration("No valid configuration found");
+    }
+
+    QString filePath = filePaths.takeFirst();
+
+    if(filePath.startsWith("http")){
+        QUrl fileUrl(filePath);
+        QSharedPointer<QNetworkAccessManager> nam(new QNetworkAccessManager());
+        QObject::connect(nam.get(), &QNetworkAccessManager::finished, this, [this, nam](QNetworkReply* reply){
+            QString data = reply->readAll();
+            reply->deleteLater();
+            if(data == ""){
+                openNextFile();
+            }else{
+                loadedFile(data);
             }
-            defaultConfigFilesMessage +=
-                    defaultConfigurationFiles[defaultConfigurationFiles.size() - 1];
-            defaultConfigFilesMessage += " or";
+        });
+        nam->get(QNetworkRequest(fileUrl));
+    }else{
+        QFile configurationFile(filePath);
+        if (configurationFile.exists() && configurationFile.open(QIODevice::ReadOnly)) {
+            QString data = configurationFile.readAll();
+            if(data == ""){
+                openNextFile();
+            }else{
+                loadedFile(data);
+            }
+        }else{
+            openNextFile();
         }
-        failConfiguration("No valid configuration file found. You can " +
-                          defaultConfigFilesMessage +
-                          " specify your configuration with the --config option.");
-    } else {
-        QSharedPointer<QString> content = openFile(preferredFile);
-        if (content != nullptr) {
-            return *content;
-        }
-        failConfiguration("Unable to open configuration file " + preferredFile +
-                          ".");
     }
 }
 
-QSharedPointer<QString> Configuration::openFile(const QString& file) {
-    QFile configurationFile(file);
-    if (configurationFile.exists()) {
-        if (configurationFile.open(QIODevice::ReadOnly)) {
-            QString content = configurationFile.readAll();
-            return QSharedPointer<QString>::create(content);
-        }
-    }
-
-    if (file.startsWith("http://") || file.startsWith("https://")) {
-        // TODO actually retrieve file
-        return QSharedPointer<QString>::create("");
-    }
-
-    return nullptr;
+void Configuration::loadedFile(const QString &content)
+{
+    std::clog << "Loading configuration" << '\n';
+    loadConfiguration(content);
+    std::clog << "Checking configuration" << '\n';
+    checkConfiguration();
+    std::clog << "Emitting ready" << '\n';
+    emit ready();
 }
 
 void Configuration::loadConfiguration(const QString& configurationFileContent) {
     try {
+        std::clog << "Configuration:" << configurationFileContent.toStdString() << '\n';
         std::istringstream stringStream(configurationFileContent.toStdString());
         auto config = cpptoml::parser{stringStream}.parse();
 
-        auto parseAuthUrl =
-                config->get_table("auth")->get_as<std::string>("url").value_or(
-                    defaultAuthUrl);
-        auto parseBackendUrl =
-                config->get_table("backend")->get_as<std::string>("url").value_or(
-                    defaultBackendUrl);
-        auto parseSchedulerUrl = config->get_table("scheduler")
-                ->get_as<std::string>("url")
-                .value_or(defaultSchedulerUrl);
+        // Try to prevent the throwing of exceptions, because emscripten does not support them in the currently used version
+        std::string parseAuthUrl = defaultAuthUrl;
+        std::string parseBackendUrl = defaultBackendUrl;
+        std::string parseSchedulerUrl = defaultSchedulerUrl;
+
+        if(config->contains("auth")){
+            auto auth = config->get_table("auth");
+            if(auth->is_table() && auth->contains("url") ){
+                parseAuthUrl = auth->get_as<std::string>("url").value_or(defaultAuthUrl);
+            }
+        }
+
+        if(config->contains("backend")){
+            auto backend = config->get_table("backend");
+            if(backend->is_table() && backend->contains("url") ){
+                parseBackendUrl = backend->get_as<std::string>("url").value_or(defaultBackendUrl);
+            }
+        }
+        if(config->contains("scheduler")){
+            auto scheduler = config->get_table("scheduler");
+            if(scheduler->is_table() && scheduler->contains("url") ){
+                parseSchedulerUrl = scheduler->get_as<std::string>("url").value_or(defaultSchedulerUrl);
+            }
+        }
 
         if (authUrl.isEmpty()) {
             authUrl = QUrl(QString::fromStdString(parseAuthUrl));
@@ -141,7 +181,7 @@ void Configuration::loadConfiguration(const QString& configurationFileContent) {
 
 [[noreturn]] void Configuration::failConfiguration(
         const QString& message) const {
-    QTextStream(stderr) << message << Qt::endl;
+    std::clog << "Configuration error: " << message.toStdString() << '\n';
     exit(1);
 }
 
