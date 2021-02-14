@@ -1,7 +1,7 @@
 #!/bin/sh
 CONFIG_FILE="/usr/share/nginx/html/config.toml"
 
-echo "[auth]" >> $CONFIG_FILE
+echo "[auth]" > $CONFIG_FILE
 if [ ${AUTH_URL} ]
 then
     echo "url = \"${AUTH_URL}\"" >> $CONFIG_FILE
