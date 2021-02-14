@@ -9,6 +9,8 @@
 #include <QString>
 #include <array>
 #include <string>
+#include <QSharedPointer>
+#include <QDebug>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
