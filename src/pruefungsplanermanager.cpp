@@ -175,7 +175,7 @@ PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent
     semesters.append(semester_a);
     //semesters.append(semester_b);
     activeSemester = semesters.first();
-    m_plan = activeSemester->getPlans().first();
+    activePlan = activeSemester->getPlans().first();
     connect(&autosaveTimer, &QTimer::timeout, this, &PruefungsplanerManager::saveSemesters);
     client = nullptr;
 }
@@ -231,15 +231,15 @@ QAbstractListModel* PruefungsplanerManager::testList(){
 }
 
 Plan* PruefungsplanerManager::getActivePlan(){
-    return m_plan;
+    return activePlan;
 }
 
 void PruefungsplanerManager::setActivePlan(Plan *plan)
 {
-    if (this->m_plan == plan)
+    if (this->activePlan == plan)
         return;
 
-    this->m_plan = plan;
+    this->activePlan = plan;
     emit activePlanChanged();
 }
 
@@ -281,8 +281,8 @@ void PruefungsplanerManager::setUserName(const QString &userName)
 
 int PruefungsplanerManager::getProgress() const
 {
-    qDebug() << "Get progress" << m_progress;
-    return m_progress;
+    qDebug() << "Get progress" << progress;
+    return progress;
 }
 
 void PruefungsplanerManager::saveSemesters()
@@ -299,14 +299,14 @@ void PruefungsplanerManager::startPlanning()
     qDebug() << "start planning";
     QJsonObject plan = getActivePlan()->toJsonObject();
 //TODO create connection somewhere else. Probably in ConnectionManager.
-    if(m_progress == 100 || schedulerClient == nullptr){
-    gotProgress(0);
-    schedulerClient .reset(new SchedulerClient(configuration->getSchedulerUrl()));
-    connect(schedulerClient.data(), &SchedulerClient::finishedScheduling, this, &PruefungsplanerManager::gotFinishedPlan);
-    connect(schedulerClient.data(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
-    //TODO connect socket error
-    schedulerClient->open();
-    schedulerClient->startScheduling(plan);
+    if(progress == 100 || schedulerClient == nullptr){
+        gotProgress(0);
+        schedulerClient.reset(new SchedulerClient(configuration->getSchedulerUrl(), plan, SchedulerClient::Fast));
+        connect(schedulerClient.get(), &SchedulerClient::schedulingComplete, this, &PruefungsplanerManager::gotFinishedPlan);
+        connect(schedulerClient.get(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
+        //connect(schedulerClient.get(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
+        //TODO connect socket error
+        schedulerClient->startScheduling();
     }
 }
 
@@ -322,10 +322,10 @@ void PruefungsplanerManager::gotResult(QJsonValue result)
             semesters.append(semester);
         }
         activeSemester = semesters.first();
-        m_plan = activeSemester->getPlans().first();
-        semestersChanged(semesters);
-        activeSemesterChanged();
-        activePlanChanged();
+        activePlan = activeSemester->getPlans().first();
+        emit semestersChanged(semesters);
+        emit activeSemesterChanged();
+        emit activePlanChanged();
     }else{
         qDebug() << "No array";
     }
@@ -343,8 +343,8 @@ void PruefungsplanerManager::gotFinishedPlan(QJsonValue plan)
 
 void PruefungsplanerManager::gotProgress(int progress)
 {
-    m_progress = progress;
-    emit progressChanged(m_progress);
+    progress = progress;
+    emit progressChanged(progress);
 }
 
 void PruefungsplanerManager::createNewSemester(QString name, Semester *base)

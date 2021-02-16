@@ -68,11 +68,11 @@ private:
     explicit PruefungsplanerManager(QObject *parent = nullptr);
     static PruefungsplanerManager* instance;
     QString m_userName;
-    Plan* m_plan;
+    Plan* activePlan;
     Semester* activeSemester;
     QList<Semester*> semesters;
     QSharedPointer<Client> client;
-    int m_progress;
+    int progress;
     QTimer autosaveTimer;
     QSharedPointer<SchedulerClient> schedulerClient;
     QSharedPointer<Configuration> configuration;
