@@ -62,5 +62,9 @@
         <file>qml/GroupCheckBoxForm.ui.qml</file>
         <file>qml/CalendarTimeslot.qml</file>
         <file>qml/CalendarTimeslotForm.ui.qml</file>
+        <file>qml/ErrorNotification.qml</file>
+        <file>qml/ErrorNotificationForm.ui.qml</file>
+        <file>qml/NotificationBar.qml</file>
+        <file>qml/NotificationBarForm.ui.qml</file>
     </qresource>
 </RCC>
