@@ -8,6 +8,14 @@ Item {
     height: 1080
     property alias stackLayout: stackLayout
     property alias titleBar: titleBar
+    property alias notificationBar: notificationBar
+
+    ShaderEffectSource {
+        id: effectSource
+        sourceItem: background
+        anchors.fill: parent
+        sourceRect: Qt.rect(x, y, width, height)
+    }
 
     Rectangle {
         id: background
@@ -28,6 +36,12 @@ Item {
                 }
             }
 
+            NotificationBar {
+                id: notificationBar
+                Layout.fillWidth: true
+                Layout.margins: 0
+            }
+
             StackLayout {
                 id: stackLayout
                 Layout.fillHeight: true
@@ -46,13 +60,6 @@ Item {
         }
     }
 
-    ShaderEffectSource {
-        id: effectSource
-        sourceItem: background
-        anchors.fill: parent
-        sourceRect: Qt.rect(x, y, width, height)
-    }
-
     LoginPopup {
         width: 1000
         height: 500
@@ -60,3 +67,10 @@ Item {
         visible: true
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.25}
+}
+##^##*/
+

@@ -56,6 +56,7 @@ signals:
     void activeSemesterChanged();
     void semestersChanged(QList<Semester*> semesters);
     void progressChanged(int progress);
+    void showErrorMessage(QString message);
 
 public slots:
     void gotResult(QJsonValue result);

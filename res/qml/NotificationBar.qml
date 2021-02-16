@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
+import org.pruefungsplaner.Backend 1.0
 
 NotificationBarForm {
     id: notificationBar
@@ -33,5 +34,12 @@ NotificationBarForm {
         errorNotification.createObject(notificationBar, {
                                            "message": message
                                        })
+    }
+
+    Connections {
+        target: Backend
+        function onShowErrorMessage(message) {
+            addErrorNotification(message)
+        }
     }
 }

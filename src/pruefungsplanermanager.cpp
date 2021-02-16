@@ -151,7 +151,7 @@ Plan* createPlan(QObject* parent){
     return plan_b;
 }
 
-PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent)
+PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent), progress(0)
 {
     Semester* semester_a = new Semester(this);
     //Semester* semester_b = new Semester(this);
@@ -303,6 +303,8 @@ void PruefungsplanerManager::startPlanning()
         gotProgress(0);
         schedulerClient.reset(new SchedulerClient(configuration->getSchedulerUrl(), plan, SchedulerClient::Fast));
         connect(schedulerClient.get(), &SchedulerClient::schedulingComplete, this, &PruefungsplanerManager::gotFinishedPlan);
+        connect(schedulerClient.get(), &SchedulerClient::connectionFailed, this, &PruefungsplanerManager::showErrorMessage);
+        connect(schedulerClient.get(), &SchedulerClient::schedulingFailed, this, &PruefungsplanerManager::showErrorMessage);
         connect(schedulerClient.get(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
         //connect(schedulerClient.get(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
         //TODO connect socket error
@@ -343,7 +345,7 @@ void PruefungsplanerManager::gotFinishedPlan(QJsonValue plan)
 
 void PruefungsplanerManager::gotProgress(int progress)
 {
-    progress = progress;
+    this->progress = progress;
     emit progressChanged(progress);
 }
 
