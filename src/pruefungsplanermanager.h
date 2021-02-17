@@ -32,8 +32,16 @@ class PruefungsplanerManager : public QObject
     Q_PROPERTY(Plan* activePlan READ getActivePlan WRITE setActivePlan NOTIFY activePlanChanged)
     Q_PROPERTY(QList<Semester*> semesters READ getSemesters WRITE setSemesters NOTIFY semestersChanged)
     Q_PROPERTY(int progress READ getProgress NOTIFY progressChanged)
+    Q_PROPERTY(SchedulingState schedulingState READ getSchedulingState NOTIFY schedulingStateChanged)
 
 public:
+    enum SchedulingState{
+        Inactive,
+        Running,
+        Failed,
+        Finished
+    };
+    Q_ENUM(SchedulingState)
     static PruefungsplanerManager* getInstance();
     static QObject* getQmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
     void setConfiguration(QSharedPointer<Configuration> configuration);
@@ -49,6 +57,7 @@ public:
     void setUserName(const QString &userName);
     int getProgress() const;
     Q_INVOKABLE void startPlanning();
+    SchedulingState getSchedulingState() const;
 
 signals:
     void userNameChanged();
@@ -57,6 +66,7 @@ signals:
     void semestersChanged(QList<Semester*> semesters);
     void progressChanged(int progress);
     void showErrorMessage(QString message);
+    void schedulingStateChanged(SchedulingState schedulingState);
 
 public slots:
     void gotResult(QJsonValue result);
@@ -77,7 +87,7 @@ private:
     QTimer autosaveTimer;
     QSharedPointer<SchedulerClient> schedulerClient;
     QSharedPointer<Configuration> configuration;
-
+    SchedulingState schedulingState;
 };
 
 #endif // PRUEFUNGSPLANERBACKEND_H

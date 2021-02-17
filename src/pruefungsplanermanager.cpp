@@ -151,7 +151,7 @@ Plan* createPlan(QObject* parent){
     return plan_b;
 }
 
-PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent), progress(0)
+PruefungsplanerManager::PruefungsplanerManager(QObject *parent) : QObject(parent), progress(0), schedulingState(Inactive)
 {
     Semester* semester_a = new Semester(this);
     //Semester* semester_b = new Semester(this);
@@ -306,10 +306,29 @@ void PruefungsplanerManager::startPlanning()
         connect(schedulerClient.get(), &SchedulerClient::connectionFailed, this, &PruefungsplanerManager::showErrorMessage);
         connect(schedulerClient.get(), &SchedulerClient::schedulingFailed, this, &PruefungsplanerManager::showErrorMessage);
         connect(schedulerClient.get(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
-        //connect(schedulerClient.get(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
-        //TODO connect socket error
+
+        auto schedulingFailed = [this](){
+            schedulingState = Failed;
+            emit schedulingStateChanged(schedulingState);
+        };
+        auto schedulingFinished = [this](){
+            schedulingState = Finished;
+            emit schedulingStateChanged(schedulingState);
+        };
+        connect(schedulerClient.get(), &SchedulerClient::connectionFailed, this, schedulingFailed);
+        connect(schedulerClient.get(), &SchedulerClient::connectionFailed, this, schedulingFailed);
+        connect(schedulerClient.get(), &SchedulerClient::schedulingComplete, this, schedulingFinished);
+
+        schedulingState = Running;
+        emit schedulingStateChanged(schedulingState);
+
         schedulerClient->startScheduling();
     }
+}
+
+PruefungsplanerManager::SchedulingState PruefungsplanerManager::getSchedulingState() const
+{
+    return schedulingState;
 }
 
 void PruefungsplanerManager::gotResult(QJsonValue result)
