@@ -297,8 +297,18 @@ void PruefungsplanerManager::saveSemesters()
 void PruefungsplanerManager::startPlanning()
 {
     qDebug() << "start planning";
+
+    //Remove old scheduled Exams from plan
+    //TODO Maybe do this somewhere else
+    for(auto& week : activePlan->getWeeks()){
+        for(auto& day : week->getDays()){
+            for(auto& timeslot : day->getTimeslots()){
+                timeslot->setModules(QList<Module*>());
+            }
+        }
+    }
+
     QJsonObject plan = getActivePlan()->toJsonObject();
-//TODO create connection somewhere else. Probably in ConnectionManager.
     if(progress == 100 || schedulerClient == nullptr){
         gotProgress(0);
         schedulerClient.reset(new SchedulerClient(configuration->getSchedulerUrl(), plan, SchedulerClient::Fast));
