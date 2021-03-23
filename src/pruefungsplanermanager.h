@@ -56,7 +56,7 @@ public:
     void setSemesters(QList<Semester*> semesters);
     void setUserName(const QString &userName);
     int getProgress() const;
-    Q_INVOKABLE void startPlanning();
+    Q_INVOKABLE void startPlanning(QString mode = "legacy-fast");
     Q_INVOKABLE void stopPlanning();
     SchedulingState getSchedulingState() const;
 

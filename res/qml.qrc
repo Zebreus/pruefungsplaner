@@ -68,5 +68,8 @@
         <file>qml/NotificationBarForm.ui.qml</file>
         <file>qml/WarningNotification.qml</file>
         <file>qml/WarningNotificationForm.ui.qml</file>
+        <file>icons/material/replay-24px.svg</file>
+        <file>icons/material/play_arrow-24px.svg</file>
+        <file>icons/material/stop-24px.svg</file>
     </qresource>
 </RCC>

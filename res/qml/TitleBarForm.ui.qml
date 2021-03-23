@@ -4,6 +4,10 @@ import QtQuick.Layouts 1.3
 
 ToolBar {
     position: ToolBar.Header
+    property alias scheduleGoodMenuItem: scheduleGoodMenuItem
+    property alias scheduleFastMenuItem: scheduleFastMenuItem
+    property alias buildButtonMenu: buildButtonMenu
+    property alias buildButtonMouseArea: buildButtonMouseArea
 
     id: toolBar
     property alias planSelector: planSelector
@@ -78,8 +82,25 @@ ToolBar {
             ToolButton {
                 id: buildButton
                 display: AbstractButton.IconOnly
-                icon.name: "build"
-                icon.source: "qrc:/icons/material/build-24px.svg"
+                icon.name: "play_arrow"
+                icon.source: "qrc:/icons/material/play_arrow-24px.svg"
+                MouseArea {
+                    id: buildButtonMouseArea
+                    anchors.fill: parent
+                    acceptedButtons: Qt.RightButton
+                }
+                Menu {
+                    id: buildButtonMenu
+
+                    MenuItem {
+                        id: scheduleFastMenuItem
+                        text: qsTr("Schnelle Planung")
+                    }
+                    MenuItem {
+                        id: scheduleGoodMenuItem
+                        text: qsTr("Gute Planung")
+                    }
+                }
             }
 
             ProgressBar {

@@ -101,7 +101,7 @@ QString SchedulerClient::generateSetAlgorithmMessage(
     algorithmName = "legacy-fast";
     break;
   }
-  return "{\"jsonrpc\":\"2.0\",\"method\":\"startScheduling\",\"params\":[\"" +
+  return "{\"jsonrpc\":\"2.0\",\"method\":\"setSchedulingAlgorithm\",\"params\":[\"" +
          algorithmName + "\"]}";
 }
 

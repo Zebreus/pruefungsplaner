@@ -294,7 +294,7 @@ void PruefungsplanerManager::saveSemesters()
     client->save(jsonSemesters);
 }
 
-void PruefungsplanerManager::startPlanning()
+void PruefungsplanerManager::startPlanning(QString mode)
 {
     qDebug() << "start planning";
 
@@ -308,10 +308,15 @@ void PruefungsplanerManager::startPlanning()
         }
     }
 
+    SchedulerClient::SchedulingMode schedulingMode = SchedulerClient::Fast;
+    if(mode == "legacy-good"){
+        schedulingMode = SchedulerClient::Good;
+    }
+
     QJsonObject plan = getActivePlan()->toJsonObject();
     if(progress == 100 || schedulerClient == nullptr){
         gotProgress(0);
-        schedulerClient.reset(new SchedulerClient(configuration->getSchedulerUrl(), plan, SchedulerClient::Fast));
+        schedulerClient.reset(new SchedulerClient(configuration->getSchedulerUrl(), plan, schedulingMode));
         connect(schedulerClient.get(), &SchedulerClient::schedulingComplete, this, &PruefungsplanerManager::gotFinishedPlan);
         connect(schedulerClient.get(), &SchedulerClient::connectionFailed, this, &PruefungsplanerManager::showErrorMessage);
         connect(schedulerClient.get(), &SchedulerClient::schedulingFailed, this, &PruefungsplanerManager::showErrorMessage);
@@ -327,7 +332,7 @@ void PruefungsplanerManager::startPlanning()
             emit schedulingStateChanged(schedulingState);
         };
         connect(schedulerClient.get(), &SchedulerClient::connectionFailed, this, schedulingFailed);
-        connect(schedulerClient.get(), &SchedulerClient::connectionFailed, this, schedulingFailed);
+        connect(schedulerClient.get(), &SchedulerClient::schedulingFailed, this, schedulingFailed);
         connect(schedulerClient.get(), &SchedulerClient::schedulingComplete, this, schedulingFinished);
 
         schedulingState = Running;

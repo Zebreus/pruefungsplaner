@@ -45,7 +45,34 @@ TitleBarForm {
     Connections {
         target: buildButton
         function onClicked() {
-            Backend.startPlanning()
+            if (Backend.schedulingState === Backend.Running) {
+                Backend.stopPlanning()
+            } else {
+                Backend.startPlanning()
+            }
+        }
+    }
+
+    Connections {
+        target: buildButtonMouseArea
+        function onClicked() {
+            if (Backend.schedulingState !== Backend.Running) {
+                buildButtonMenu.popup()
+            }
+        }
+    }
+
+    Connections {
+        target: scheduleFastMenuItem
+        function onClicked() {
+            Backend.startPlanning("legacy-fast")
+        }
+    }
+
+    Connections {
+        target: scheduleGoodMenuItem
+        function onClicked() {
+            Backend.startPlanning("legacy-good")
         }
     }
 
@@ -64,4 +91,20 @@ TitleBarForm {
     }
 
     buildProgress.value: Backend.progress
+
+    buildButton.icon.source: {
+        switch (Backend.schedulingState) {
+        case Backend.Running:
+            "qrc:/icons/material/stop-24px.svg"
+            break
+        case Backend.Failed:
+            "qrc:/icons/material/play_arrow-24px.svg"
+            break
+        case Backend.Finished:
+            "qrc:/icons/material/replay-24px.svg"
+            break
+        default:
+            "qrc:/icons/material/play_arrow-24px.svg"
+        }
+    }
 }
