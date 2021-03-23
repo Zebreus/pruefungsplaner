@@ -66,5 +66,7 @@
         <file>qml/ErrorNotificationForm.ui.qml</file>
         <file>qml/NotificationBar.qml</file>
         <file>qml/NotificationBarForm.ui.qml</file>
+        <file>qml/WarningNotification.qml</file>
+        <file>qml/WarningNotificationForm.ui.qml</file>
     </qresource>
 </RCC>

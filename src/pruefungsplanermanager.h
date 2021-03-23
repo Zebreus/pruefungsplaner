@@ -57,6 +57,7 @@ public:
     void setUserName(const QString &userName);
     int getProgress() const;
     Q_INVOKABLE void startPlanning();
+    Q_INVOKABLE void stopPlanning();
     SchedulingState getSchedulingState() const;
 
 signals:
@@ -66,6 +67,7 @@ signals:
     void semestersChanged(QList<Semester*> semesters);
     void progressChanged(int progress);
     void showErrorMessage(QString message);
+    void showWarningMessage(QString message);
     void schedulingStateChanged(SchedulingState schedulingState);
 
 public slots:

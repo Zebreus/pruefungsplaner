@@ -140,7 +140,7 @@ Plan* createPlan(QObject* parent){
     week_c->getDays().first()->getTimeslots().last()->setActiveGroups(activeGroups);
 
     QJsonObject plan = m_plan->toJsonObject();
-    
+
     Plan* plan_b = new Plan(parent);
     plan_b->fromJsonObject(plan);
     QJsonObject planb = plan_b->toJsonObject();
@@ -315,6 +315,7 @@ void PruefungsplanerManager::startPlanning()
         connect(schedulerClient.get(), &SchedulerClient::schedulingComplete, this, &PruefungsplanerManager::gotFinishedPlan);
         connect(schedulerClient.get(), &SchedulerClient::connectionFailed, this, &PruefungsplanerManager::showErrorMessage);
         connect(schedulerClient.get(), &SchedulerClient::schedulingFailed, this, &PruefungsplanerManager::showErrorMessage);
+        connect(schedulerClient.get(), &SchedulerClient::warning, this, &PruefungsplanerManager::showWarningMessage);
         connect(schedulerClient.get(), &SchedulerClient::progressChanged, [this](double progress){gotProgress(progress*100);});
 
         auto schedulingFailed = [this](){
@@ -333,6 +334,13 @@ void PruefungsplanerManager::startPlanning()
         emit schedulingStateChanged(schedulingState);
 
         schedulerClient->startScheduling();
+    }
+}
+
+void PruefungsplanerManager::stopPlanning()
+{
+    if(!schedulerClient.isNull()){
+        schedulerClient->abortScheduling();
     }
 }
 

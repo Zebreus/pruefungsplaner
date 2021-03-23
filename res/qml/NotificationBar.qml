@@ -30,16 +30,46 @@ NotificationBarForm {
         }
     }
 
+    Component {
+        id: warningNotification
+        ErrorNotification {
+            id: warningNotificationObject
+            NumberAnimation on Layout.preferredHeight {
+                id: closeAnimation
+                duration: 100
+                to: 0
+                easing.type: Easing.InOutQuad
+                running: false
+            }
+            Connections {
+                function onCloseNotification() {
+                    clip = true
+                    closeAnimation.start()
+                    warningNotificationObject.destroy(100)
+                }
+            }
+        }
+    }
+
     function addErrorNotification(message) {
         errorNotification.createObject(notificationBar, {
                                            "message": message
                                        })
     }
 
+    function addWarningNotification(message) {
+        warningNotification.createObject(notificationBar, {
+                                             "message": message
+                                         })
+    }
+
     Connections {
         target: Backend
         function onShowErrorMessage(message) {
             addErrorNotification(message)
+        }
+        function onShowWarningMessage(message) {
+            addWarningNotification(message)
         }
     }
 }

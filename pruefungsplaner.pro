@@ -1,4 +1,4 @@
-QT += quick quickcontrols2 websockets svg
+QT += quick quickcontrols2 websockets svg qml
 
 CONFIG += c++2a lrelease embed_translations network
 
